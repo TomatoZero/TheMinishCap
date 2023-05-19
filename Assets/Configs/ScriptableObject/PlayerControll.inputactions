@@ -20,16 +20,7 @@
                     "id": "3bdd85fd-9b11-4277-9f95-11fc58caf1ba",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "First Item Hold",
-                    "type": "Button",
-                    "id": "24ab8e18-fb4d-4a42-bed1-8770a18cc6a4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -38,16 +29,7 @@
                     "id": "c4dd0b0b-a045-4398-b492-8959c6f504d9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Second Item Hold",
-                    "type": "Button",
-                    "id": "0d2d85e2-48af-42bc-ba64-e5c0084d9e95",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -56,7 +38,7 @@
                     "id": "4f2c8f9b-7a3b-40b2-8fa4-ba800f9ae595",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -65,7 +47,7 @@
                     "id": "38dff7d3-c998-49f0-bbf3-b954f95dc2c2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -74,7 +56,7 @@
                     "id": "948bfe3e-1e9f-459b-8916-486f9c1e7b20",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -83,7 +65,7 @@
                     "name": "",
                     "id": "a95b6337-8f24-4f3b-9571-c6e9c8b882fb",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
                     "action": "FirstItem",
@@ -104,8 +86,8 @@
                 {
                     "name": "",
                     "id": "71a153dd-9c76-423c-8d48-3b72002985ca",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "Press",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
                     "action": "Second Item",
@@ -186,50 +168,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Connect Kinstone Piece",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f164a511-3d6d-4c90-83fb-87510cf71f3f",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "First Item Hold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fc92b45b-c5e5-41e2-bee7-11ea18e237d2",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "First Item Hold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fff83e5e-5e1c-45e2-9aac-84d926940d2b",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "Mouse & Keyboard",
-                    "action": "Second Item Hold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "02fbb5e0-c8de-474e-a959-f785da6b7a1a",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Second Item Hold",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

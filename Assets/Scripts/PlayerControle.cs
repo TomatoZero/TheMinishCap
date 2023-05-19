@@ -42,16 +42,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""id"": ""3bdd85fd-9b11-4277-9f95-11fc58caf1ba"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""First Item Hold"",
-                    ""type"": ""Button"",
-                    ""id"": ""24ab8e18-fb4d-4a42-bed1-8770a18cc6a4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -60,16 +51,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""id"": ""c4dd0b0b-a045-4398-b492-8959c6f504d9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Second Item Hold"",
-                    ""type"": ""Button"",
-                    ""id"": ""0d2d85e2-48af-42bc-ba64-e5c0084d9e95"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -78,7 +60,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""id"": ""4f2c8f9b-7a3b-40b2-8fa4-ba800f9ae595"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -87,7 +69,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""id"": ""38dff7d3-c998-49f0-bbf3-b954f95dc2c2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -96,7 +78,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""id"": ""948bfe3e-1e9f-459b-8916-486f9c1e7b20"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -105,7 +87,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""a95b6337-8f24-4f3b-9571-c6e9c8b882fb"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""FirstItem"",
@@ -126,8 +108,8 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""71a153dd-9c76-423c-8d48-3b72002985ca"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Mouse & Keyboard"",
                     ""action"": ""Second Item"",
@@ -208,50 +190,6 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Connect Kinstone Piece"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f164a511-3d6d-4c90-83fb-87510cf71f3f"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mouse & Keyboard"",
-                    ""action"": ""First Item Hold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fc92b45b-c5e5-41e2-bee7-11ea18e237d2"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""First Item Hold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fff83e5e-5e1c-45e2-9aac-84d926940d2b"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": ""Mouse & Keyboard"",
-                    ""action"": ""Second Item Hold"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""02fbb5e0-c8de-474e-a959-f785da6b7a1a"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Second Item Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -584,9 +522,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_FirstItem = m_Player.FindAction("FirstItem", throwIfNotFound: true);
-        m_Player_FirstItemHold = m_Player.FindAction("First Item Hold", throwIfNotFound: true);
         m_Player_SecondItem = m_Player.FindAction("Second Item", throwIfNotFound: true);
-        m_Player_SecondItemHold = m_Player.FindAction("Second Item Hold", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_ConnectKinstonePiece = m_Player.FindAction("Connect Kinstone Piece", throwIfNotFound: true);
@@ -654,9 +590,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_FirstItem;
-    private readonly InputAction m_Player_FirstItemHold;
     private readonly InputAction m_Player_SecondItem;
-    private readonly InputAction m_Player_SecondItemHold;
     private readonly InputAction m_Player_Menu;
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_ConnectKinstonePiece;
@@ -666,9 +600,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
         public PlayerActions(@PlayerControll wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @FirstItem => m_Wrapper.m_Player_FirstItem;
-        public InputAction @FirstItemHold => m_Wrapper.m_Player_FirstItemHold;
         public InputAction @SecondItem => m_Wrapper.m_Player_SecondItem;
-        public InputAction @SecondItemHold => m_Wrapper.m_Player_SecondItemHold;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputAction @ConnectKinstonePiece => m_Wrapper.m_Player_ConnectKinstonePiece;
@@ -687,15 +619,9 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 @FirstItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
                 @FirstItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
                 @FirstItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItem;
-                @FirstItemHold.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItemHold;
-                @FirstItemHold.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItemHold;
-                @FirstItemHold.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFirstItemHold;
                 @SecondItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItem;
                 @SecondItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItem;
                 @SecondItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItem;
-                @SecondItemHold.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItemHold;
-                @SecondItemHold.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItemHold;
-                @SecondItemHold.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSecondItemHold;
                 @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
@@ -715,15 +641,9 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 @FirstItem.started += instance.OnFirstItem;
                 @FirstItem.performed += instance.OnFirstItem;
                 @FirstItem.canceled += instance.OnFirstItem;
-                @FirstItemHold.started += instance.OnFirstItemHold;
-                @FirstItemHold.performed += instance.OnFirstItemHold;
-                @FirstItemHold.canceled += instance.OnFirstItemHold;
                 @SecondItem.started += instance.OnSecondItem;
                 @SecondItem.performed += instance.OnSecondItem;
                 @SecondItem.canceled += instance.OnSecondItem;
-                @SecondItemHold.started += instance.OnSecondItemHold;
-                @SecondItemHold.performed += instance.OnSecondItemHold;
-                @SecondItemHold.canceled += instance.OnSecondItemHold;
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
@@ -792,9 +712,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnFirstItem(InputAction.CallbackContext context);
-        void OnFirstItemHold(InputAction.CallbackContext context);
         void OnSecondItem(InputAction.CallbackContext context);
-        void OnSecondItemHold(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnConnectKinstonePiece(InputAction.CallbackContext context);
