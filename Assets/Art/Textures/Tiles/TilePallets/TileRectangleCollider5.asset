@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: TileRectangleCollider5
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 742efd8d704cd16428821ddc0861b2cb, type: 3}
-  m_DefaultGameObject: {fileID: 680418941480286779, guid: a0d4615cf6a25d5489344d814e1f45e1, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: 885069eee35b1d9418597605e1c9614e, type: 3}
+  m_DefaultGameObject: {fileID: 3022629139476675028, guid: 51b85192c4ef06945b07cf95c49e244d, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules: []
