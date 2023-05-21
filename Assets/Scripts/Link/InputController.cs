@@ -85,7 +85,7 @@ public class InputController : MonoBehaviour
 
     private void Roll()
     {
-        _characterController.IsRoll = true;
+        _characterController.Roll();
     }
     
     private IEnumerator Charge()
@@ -97,10 +97,5 @@ public class InputController : MonoBehaviour
         }
 
         if (!_isCharging) _attackCharge.value = 0;
-    }
-
-    private void FirstItemHold()
-    {
-        Debug.Log("First item hold");
     }
 }
