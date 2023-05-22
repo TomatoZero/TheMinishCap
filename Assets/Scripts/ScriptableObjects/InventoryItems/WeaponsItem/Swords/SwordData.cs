@@ -5,7 +5,7 @@ public class SwordData : ScriptableObject
 {
     [SerializeField] private string _name;
     [SerializeField] private Sprite _icon;
-    [SerializeField] private Sprite _firstWeaponSprite;
-    [SerializeField] private Sprite _secondWeaponSprite;
+    [SerializeField] private Sprite _inGame;
+    [SerializeField] private Sprite _inHand;
     [SerializeField] private int _numCopies;
 }
