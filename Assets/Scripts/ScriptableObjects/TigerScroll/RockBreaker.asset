@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e5f821893b42428087a04b51da009, type: 3}
   m_Name: RockBreaker
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
-  _description: {fileID: 0}
+  _name: Rock Breaker Tiger Scroll
+  _icon: {fileID: 21300000, guid: f9c0fa70dd496c24ab5c8868f978b42b, type: 3}
+  _description: {fileID: 21300000, guid: 45a43f7d946ce3640b043232d5c67740, type: 3}
