@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MysteriousShell
   m_EditorClassIdentifier: 
   _name: Mysterious Shell
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: 009d9ad247afeb1409b1e90ba4eb1a5e, type: 3}

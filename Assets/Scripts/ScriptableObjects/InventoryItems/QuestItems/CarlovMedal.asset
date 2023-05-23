@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: CarlovMedal
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: Carlov Medal
+  _icon: {fileID: 21300000, guid: acbe866fdc93ad442a11051a44f8a06f, type: 3}

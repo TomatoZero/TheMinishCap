@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: BrokenPicoriBlade
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: Broken Picori Blade
+  _icon: {fileID: 21300000, guid: fb4de3c535d79fb428c2df5cca07ae66, type: 3}

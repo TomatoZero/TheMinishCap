@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: WindElement
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: Wind Element
+  _icon: {fileID: 21300000, guid: 825f1377a7607824b93d5c6aac7c278d, type: 3}

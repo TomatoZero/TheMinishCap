@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: LegendOfThePicori
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: Legend of the Picori
+  _icon: {fileID: 21300000, guid: f413608c3b7d0ed478b8c8b069e3a30e, type: 3}

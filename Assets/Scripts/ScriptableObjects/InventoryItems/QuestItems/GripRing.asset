@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: GripRing
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: Grip Ring
+  _icon: {fileID: 21300000, guid: 6933e746fdbd4e34ca79e7dfeab04403, type: 3}

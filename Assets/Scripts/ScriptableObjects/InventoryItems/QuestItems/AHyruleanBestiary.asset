@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: AHyruleanBestiary
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: A Hyrulean Bestiary
+  _icon: {fileID: 21300000, guid: d43a1c81f819f844b913f05c97a749a3, type: 3}

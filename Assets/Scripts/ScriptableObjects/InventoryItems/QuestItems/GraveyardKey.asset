@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
   m_Name: GraveyardKey
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
+  _name: Graveyard Key
+  _icon: {fileID: 21300000, guid: 494f4870cc3d6ed45bd803d67b038fa7, type: 3}
