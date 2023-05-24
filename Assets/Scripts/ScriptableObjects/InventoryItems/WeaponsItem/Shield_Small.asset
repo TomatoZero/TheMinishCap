@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74646f08439857341a5d63b26c17ffcd, type: 3}
-  m_Name: ShieldData
+  m_Script: {fileID: 11500000, guid: 2b963861d66942fdb9b0675ace828ba3, type: 3}
+  m_Name: Shield_Small
   m_EditorClassIdentifier: 
   _name: Small Shield
   _icon: {fileID: 21300000, guid: f224d19e8b4eb86438e77ff0f1d97907, type: 3}
   _side: {fileID: 21300000, guid: 8f88ca2845b7396478c2b18d50515d69, type: 3}
   _front: {fileID: 21300000, guid: b0c0e854d39ef5e4dadba4857196c2d2, type: 3}
+  _inGame: {fileID: 21300000, guid: f224d19e8b4eb86438e77ff0f1d97907, type: 3}
+  _lvl: 1

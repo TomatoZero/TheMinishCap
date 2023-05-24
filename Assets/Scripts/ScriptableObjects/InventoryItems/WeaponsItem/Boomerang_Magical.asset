@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05251076f0c34445a38bf7e5ce2cf203, type: 3}
-  m_Name: BowOfLight
+  m_Script: {fileID: 11500000, guid: 2b963861d66942fdb9b0675ace828ba3, type: 3}
+  m_Name: Boomerang_Magical
   m_EditorClassIdentifier: 
-  _name: Bow of Light
-  _icon: {fileID: 21300000, guid: 23baad136e8d18d478c46c930e6422c3, type: 3}
+  _name: Magical Boomerang
+  _icon: {fileID: 21300000, guid: f4489ece6a7cd9a479cb455a4553c4b0, type: 3}
+  _side: {fileID: 0}
+  _front: {fileID: 0}
+  _inGame: {fileID: 0}
+  _lvl: 2
