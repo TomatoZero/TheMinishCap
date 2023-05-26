@@ -460,6 +460,15 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Navigate"",
+                    ""type"": ""Value"",
+                    ""id"": ""c8b945de-2d67-48f2-8972-fd913d78848b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -484,6 +493,61 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""action"": ""Close"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""56129ff9-1c40-4fdb-a363-3c5039b24b36"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""9abca986-082e-4131-a19f-37e5e3d9990e"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""7c23c2f1-8d5a-4e73-8696-64fece41deef"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""359bb928-4480-4214-97e8-a417a858d4a5"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""276d9caa-2271-4f8a-87d8-fd093eed34e7"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Navigate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -529,6 +593,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Close = m_UI.FindAction("Close", throwIfNotFound: true);
+        m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -662,11 +727,13 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_Close;
+    private readonly InputAction m_UI_Navigate;
     public struct UIActions
     {
         private @PlayerControll m_Wrapper;
         public UIActions(@PlayerControll wrapper) { m_Wrapper = wrapper; }
         public InputAction @Close => m_Wrapper.m_UI_Close;
+        public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -679,6 +746,9 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 @Close.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClose;
                 @Close.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClose;
                 @Close.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClose;
+                @Navigate.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -686,6 +756,9 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 @Close.started += instance.OnClose;
                 @Close.performed += instance.OnClose;
                 @Close.canceled += instance.OnClose;
+                @Navigate.started += instance.OnNavigate;
+                @Navigate.performed += instance.OnNavigate;
+                @Navigate.canceled += instance.OnNavigate;
             }
         }
     }
@@ -720,5 +793,6 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnClose(InputAction.CallbackContext context);
+        void OnNavigate(InputAction.CallbackContext context);
     }
 }

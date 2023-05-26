@@ -17,7 +17,7 @@ public class InventoryController : MonoBehaviour
     {
         if (other.TryGetComponent<WeaponItem>(out var weapon))
         {
-            _inventory.AddWeapon(weapon.Data);
+            _inventory.AddWeapon(weapon.Weapon);
         }
     }
 }

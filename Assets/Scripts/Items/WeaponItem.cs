@@ -1,41 +1,33 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponItem : MonoBehaviour
 {
     [SerializeField] private Image _ico;
+    [SerializeField] private UiContoller _uiController;
         
-    private WeaponData _data;
+    private WeaponData _weapon;
 
-    public WeaponData Data
+    public WeaponData Weapon
     {
-        get => _data;
+        get => _weapon;
         set
         {
-            _data = value;
+            _weapon = value;
             SetItem();
         }
     }
 
     private void Awake()
     {
-        // if (_data != null)
-        // {
-        //     _ico.sprite = _data.Icon;
-        // }
-        // else
-        // {
-        //     _ico.sprite = null;
-        //     _ico.color = Color.clear;
-        // }
+        
     }
 
     private void SetItem()
     {
-        if (_data != null)
+        if (_weapon != null)
         {
-            _ico.sprite = _data.Icon;
+            _ico.sprite = _weapon.Icon;
         }
         else
         {
@@ -47,5 +39,15 @@ public class WeaponItem : MonoBehaviour
     private void SetAsSelected()
     {
         
+    }
+    
+    public void Selected()
+    {
+        if(_weapon != null) _uiController.SetDescription(_weapon.Name);
+    }
+
+    public void Away()
+    {
+        _uiController.HideDescription();
     }
 }

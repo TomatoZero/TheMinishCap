@@ -6,6 +6,7 @@ namespace DefaultNamespace.UI
     public class InventoryItem : MonoBehaviour
     {
         [SerializeField] private Image _ico;
+        // [SerializeField] private UiContoller _uiController;
         
         private InventoryItemData _data;
 
@@ -24,5 +25,7 @@ namespace DefaultNamespace.UI
                 _ico.color = Color.clear;
             }
         }
+        
+        
     }
 }

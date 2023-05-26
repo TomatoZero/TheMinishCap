@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InventoryData", menuName = "Items/Inventory")]
 public class InventoryData : ScriptableObject
 {
-    private List<WeaponData>_weapons;
+    private List<WeaponData> _weapons;
     private List<InventoryData> _bottles;
     private List<InventoryData> _questItem;
     private List<KinstonePieceData> _kinstonePieces;

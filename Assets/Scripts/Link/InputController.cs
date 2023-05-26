@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
@@ -75,7 +76,8 @@ public class InputController : MonoBehaviour
     
     private void OpenMenu()
     {
-        Debug.Log("Open Menu");
+        var input = GetComponent<PlayerInput>();
+        
     }
 
     private void ConnectPiece()
