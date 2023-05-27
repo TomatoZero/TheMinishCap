@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e5f821893b42428087a04b51da009, type: 3}
   m_Name: GreatSpinAttack
   m_EditorClassIdentifier: 
-  _name: Great Spin Attack Tiger Scroll
+  _name: Great Spin Attack
   _icon: {fileID: 21300000, guid: dc12369455c817543814c3dd88acb29c, type: 3}
   _description: {fileID: 21300000, guid: 6a3c7f97905ace5419a464efa9d05200, type: 3}

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78e5f821893b42428087a04b51da009, type: 3}
   m_Name: SwordBeam
   m_EditorClassIdentifier: 
-  _name: Sword Beam Tiger Scroll
+  _name: Sword Beam
   _icon: {fileID: 21300000, guid: 9fea81b6977a92f4aa4f6727e5cfa8b9, type: 3}
   _description: {fileID: 21300000, guid: 9a2872276e1a4094aadd855f54d145da, type: 3}
