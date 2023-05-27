@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatisticPanelController : MonoBehaviour
 {
@@ -11,7 +13,10 @@ public class StatisticPanelController : MonoBehaviour
     [SerializeField] private IventoryItem _powerBracelet;
     [SerializeField] private IventoryItem _flippers;
     [Space]
-    [SerializeField] private SubWindow _tigerScrolls;
+    [SerializeField] private TMP_Text _tigerScrollsCount;
+    [SerializeField] private TMP_Text _secretSeashellCount;
+    [SerializeField] private TMP_Text _heartsCounter;
+    [SerializeField] private Image _heartsCounterImage;
 
     
     public void OpenSubWindow(SubWindow subWindow)

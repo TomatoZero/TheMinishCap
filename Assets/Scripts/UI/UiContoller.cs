@@ -6,9 +6,9 @@ public class UiContoller : MonoBehaviour
     [SerializeField] private ItemsContoller _itemsPanel;
     [SerializeField] private StatisticPanelController _statisticPanel;
     [SerializeField] private MapPanelController _mapPanel;
-    
+    [Space]
     [SerializeField] private DungeonMapPanelController _dungeonMapPanel;
-    
+    [Space]
     [SerializeField] private DescriptionController _description;
     [SerializeField] private List<GameObject> _windows;
 
