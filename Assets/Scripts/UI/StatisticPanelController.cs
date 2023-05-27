@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StatisticPanelController : MonoBehaviour
 {
-    [SerializeField] private ItemData _earthElement;
-    [SerializeField] private ItemData _waterElement;
-    [SerializeField] private ItemData _fireElement;
-    [SerializeField] private ItemData _windElement;
+    [SerializeField] private IventoryItem _earthElement;
+    [SerializeField] private IventoryItem _waterElement;
+    [SerializeField] private IventoryItem _fireElement;
+    [SerializeField] private IventoryItem _windElement;
+    [Space]
+    [SerializeField] private IventoryItem _gripRing;
+    [SerializeField] private IventoryItem _powerBracelet;
+    [SerializeField] private IventoryItem _flippers;
+    [Space]
+    [SerializeField] private SubWindow _tigerScrolls;
 
-    [SerializeField] private ItemData _gripRing;
-    [SerializeField] private ItemData _powerBracelet;
-    [SerializeField] private ItemData _flippers;
-
-    [SerializeField] private TigerScrollController _tigerScrolls;
     
+    public void OpenSubWindow(SubWindow subWindow)
+    {
+        subWindow.Show();
+        gameObject.SetActive(false);
+    }
+
+    public void HideSubWindow(SubWindow subWindow)
+    {
+        subWindow.Hide();
+        gameObject.SetActive(true);
+    }
 }
