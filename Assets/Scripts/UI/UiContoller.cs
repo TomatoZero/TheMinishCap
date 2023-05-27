@@ -1,6 +1,5 @@
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UiContoller : MonoBehaviour
 {
@@ -11,16 +10,29 @@ public class UiContoller : MonoBehaviour
     [SerializeField] private DungeonMapPanelController _dungeonMapPanel;
     
     [SerializeField] private DescriptionController _description;
-
+    [SerializeField] private List<GameObject> _windows;
 
     private void Start()
     {
         
     }
 
-    public void OpenPanel(GameObject panel)
+    public void NextWindow(GameObject currentWindow)
     {
-        panel.SetActive(true);
+        currentWindow.SetActive(false);
+        var currentIndex = _windows.IndexOf(currentWindow);
+        
+        if(currentIndex + 1 < _windows.Count) _windows[currentIndex + 1].SetActive(true);
+        else _windows[0].SetActive(true);
+    }
+    
+    public void PrevWindow(GameObject currentWindow)
+    {
+        currentWindow.SetActive(false);
+        var currentIndex = _windows.IndexOf(currentWindow);
+        
+        if(currentIndex - 1 >= 0) _windows[currentIndex - 1].SetActive(true);
+        else _windows[^1].SetActive(true);
     }
 
     public void SetDescription(string description)
