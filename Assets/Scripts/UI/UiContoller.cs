@@ -39,6 +39,7 @@ public class UiContoller : MonoBehaviour
     {
         _description.SetDescription(description);
     }
+    
 
     public void HideDescription()
     {

@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponItem : MonoBehaviour
+public class IventoryItem : MonoBehaviour
 {
     [SerializeField] private Image _ico;
     [SerializeField] private UiContoller _uiController;
         
-    private WeaponData _weapon;
+    private ItemData _item;
 
-    public WeaponData Weapon
+    public ItemData Item
     {
-        get => _weapon;
+        get => _item;
         set
         {
-            _weapon = value;
+            _item = value;
             SetItem();
         }
     }
@@ -25,9 +25,9 @@ public class WeaponItem : MonoBehaviour
 
     private void SetItem()
     {
-        if (_weapon != null)
+        if (_item != null)
         {
-            _ico.sprite = _weapon.Icon;
+            _ico.sprite = _item.Icon;
         }
         else
         {
@@ -36,14 +36,9 @@ public class WeaponItem : MonoBehaviour
         }
     }
     
-    private void SetAsSelected()
-    {
-        
-    }
-    
     public void Selected()
     {
-        if(_weapon != null) _uiController.SetDescription(_weapon.Name);
+        if(_item != null) _uiController.SetDescription(_item.Name);
     }
 
     public void Away()

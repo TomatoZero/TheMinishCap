@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class ItemsContoller : MonoBehaviour
 {
-    [SerializeField] private WeaponItem _sword;
-    [SerializeField] private WeaponItem _jar;
-    [SerializeField] private WeaponItem _staff;
-    [SerializeField] private WeaponItem _boomerang;
+    [SerializeField] private IventoryItem _sword;
+    [SerializeField] private IventoryItem _jar;
+    [SerializeField] private IventoryItem _staff;
+    [SerializeField] private IventoryItem _boomerang;
     [Space]
-    [SerializeField] private WeaponItem _shield;
-    [SerializeField] private WeaponItem _mitts;
-    [SerializeField] private WeaponItem _lanter;
-    [SerializeField] private WeaponItem _bomb;
+    [SerializeField] private IventoryItem _shield;
+    [SerializeField] private IventoryItem _mitts;
+    [SerializeField] private IventoryItem _lanter;
+    [SerializeField] private IventoryItem _bomb;
     [Space]
-    [SerializeField] private WeaponItem _boots;
-    [SerializeField] private WeaponItem _cape;
-    [SerializeField] private WeaponItem _ocarina;
-    [SerializeField] private WeaponItem _bow;
+    [SerializeField] private IventoryItem _boots;
+    [SerializeField] private IventoryItem _cape;
+    [SerializeField] private IventoryItem _ocarina;
+    [SerializeField] private IventoryItem _bow;
     [Space] 
     [SerializeField] private InventoryData _inventory;
     
@@ -32,20 +32,20 @@ public class ItemsContoller : MonoBehaviour
 
     private void Start()
     {
-        _sword.Weapon = _inventory.GetWeaponByType("Sword");
-        _jar.Weapon = _inventory.GetWeaponByType("GustJar");
-        _staff.Weapon = _inventory.GetWeaponByType("CaneOfPacci");
-        _boomerang.Weapon = _inventory.GetWeaponByType("Boomerang");
+        _sword.Item = _inventory.GetWeaponByType("Sword");
+        _jar.Item = _inventory.GetWeaponByType("GustJar");
+        _staff.Item = _inventory.GetWeaponByType("CaneOfPacci");
+        _boomerang.Item = _inventory.GetWeaponByType("Boomerang");
         
-        _shield.Weapon = _inventory.GetWeaponByType("Shield");
-        _mitts.Weapon = _inventory.GetWeaponByType("MoleMitts");
-        _lanter.Weapon = _inventory.GetWeaponByType("FlameLantern");
-        _bomb.Weapon = _inventory.GetWeaponByType("Bomb");
+        _shield.Item = _inventory.GetWeaponByType("Shield");
+        _mitts.Item = _inventory.GetWeaponByType("MoleMitts");
+        _lanter.Item = _inventory.GetWeaponByType("FlameLantern");
+        _bomb.Item = _inventory.GetWeaponByType("Bomb");
         
-        _boots.Weapon = _inventory.GetWeaponByType("PegasusBoots");
-        _cape.Weapon = _inventory.GetWeaponByType("RocsCape");
-        _ocarina.Weapon = _inventory.GetWeaponByType("OcarinaOfWind");
-        _bow.Weapon = _inventory.GetWeaponByType("Bow");
+        _boots.Item = _inventory.GetWeaponByType("PegasusBoots");
+        _cape.Item = _inventory.GetWeaponByType("RocsCape");
+        _ocarina.Item = _inventory.GetWeaponByType("OcarinaOfWind");
+        _bow.Item = _inventory.GetWeaponByType("Bow");
     }
 
     public void HidePanel()
