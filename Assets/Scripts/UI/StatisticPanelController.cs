@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class StatisticPanelController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private ItemData _earthElement;
+    [SerializeField] private ItemData _waterElement;
+    [SerializeField] private ItemData _fireElement;
+    [SerializeField] private ItemData _windElement;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private ItemData _gripRing;
+    [SerializeField] private ItemData _powerBracelet;
+    [SerializeField] private ItemData _flippers;
+
+    [SerializeField] private TigerScrollController _tigerScrolls;
+    
 }

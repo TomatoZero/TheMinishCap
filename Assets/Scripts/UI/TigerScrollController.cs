@@ -1,17 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TigerScrollController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject _container;
+    [SerializeField] private Image _description;
+    [SerializeField] private TMP_Text _scrollName;
+
+    public void PointEnter(TigerScrollItem scroll)
     {
-        
+        _description.sprite = scroll.TigerScroll.Description;
+        _scrollName.text = scroll.TigerScroll.Name;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PointExit()
     {
         
     }
