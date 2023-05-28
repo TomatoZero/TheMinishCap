@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KinstoneBagController : SubWindow
+public class KinstoneBagController : WindowController
 {
     [SerializeField] private GameObject _container;
      
