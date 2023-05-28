@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatisticPanelController : MonoBehaviour
+public class StatisticPanelController : WindowController
 {
     [SerializeField] private IventoryItem _earthElement;
     [SerializeField] private IventoryItem _waterElement;
@@ -19,13 +19,13 @@ public class StatisticPanelController : MonoBehaviour
     [SerializeField] private Image _heartsCounterImage;
 
     
-    public void OpenSubWindow(SubWindow subWindow)
+    public void OpenSubWindow(WindowController subWindow)
     {
         subWindow.Show();
         gameObject.SetActive(false);
     }
 
-    public void HideSubWindow(SubWindow subWindow)
+    public void HideSubWindow(WindowController subWindow)
     {
         subWindow.Hide();
         gameObject.SetActive(true);

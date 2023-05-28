@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UiContoller : MonoBehaviour
@@ -8,31 +10,66 @@ public class UiContoller : MonoBehaviour
     [SerializeField] private MapPanelController _mapPanel;
     [Space]
     [SerializeField] private DungeonMapPanelController _dungeonMapPanel;
-    [Space]
-    [SerializeField] private DescriptionController _description;
-    [SerializeField] private List<GameObject> _windows;
 
-    private void Start()
+    [Space] [SerializeField] private TMP_Text _currenWindowName;
+    [SerializeField] private DescriptionController _description;
+    [SerializeField] private List<WindowController> _windows;
+
+    private int _currentWindow;
+    
+    public string WindowName
     {
-        
+        get => _currenWindowName.text;
+        set => _currenWindowName.text = value;
     }
 
-    public void NextWindow(GameObject currentWindow)
+    private void OnEnable()
     {
-        currentWindow.SetActive(false);
-        var currentIndex = _windows.IndexOf(currentWindow);
+        foreach (var window in _windows)
+        {
+            window.Hide();
+        }
         
-        if(currentIndex + 1 < _windows.Count) _windows[currentIndex + 1].SetActive(true);
-        else _windows[0].SetActive(true);
+        _windows[0].Show();
+        _currentWindow = 0;
+        WindowName = _windows[0].WindowName;
+    }
+
+    public void NextWindow()
+    {
+        _windows[_currentWindow].Hide();
+        
+        if(_currentWindow + 1 < _windows.Count)
+        {
+            _currentWindow++;
+            WindowName = _windows[_currentWindow].WindowName;
+            _windows[_currentWindow].Show();
+        }
+        else
+        {
+            _currentWindow = 0;
+            WindowName = _windows[0].WindowName;
+            _windows[0].Show();
+        }
+        
     }
     
-    public void PrevWindow(GameObject currentWindow)
+    public void PrevWindow()
     {
-        currentWindow.SetActive(false);
-        var currentIndex = _windows.IndexOf(currentWindow);
+        _windows[_currentWindow].Hide();
         
-        if(currentIndex - 1 >= 0) _windows[currentIndex - 1].SetActive(true);
-        else _windows[^1].SetActive(true);
+        if(_currentWindow - 1 >= 0)
+        {
+            _currentWindow--;
+            WindowName = _windows[_currentWindow].WindowName;
+            _windows[_currentWindow].Show();
+        }
+        else
+        {
+            _currentWindow = _windows.Count - 1;
+            WindowName = _windows[_currentWindow].WindowName;
+            _windows[^1].Show();
+        }
     }
 
     public void SetDescription(string description)

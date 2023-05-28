@@ -1,8 +1,6 @@
-using System;
-using TMPro;
 using UnityEngine;
 
-public class ItemsContoller : MonoBehaviour
+public class ItemsContoller : WindowController
 {
     [SerializeField] private IventoryItem _sword;
     [SerializeField] private IventoryItem _jar;
@@ -24,10 +22,10 @@ public class ItemsContoller : MonoBehaviour
     
     private void Awake()
     {
-        for (var i = 0; i < _inventory.Weapons.Count; i++)
-        {
-            Debug.Log($"{i}: {_inventory.Weapons[i]}");
-        }
+        // for (var i = 0; i < _inventory.Weapons.Count; i++)
+        // {
+        //     Debug.Log($"{i}: {_inventory.Weapons[i]}");
+        // }
     }
 
     private void Start()
@@ -46,15 +44,5 @@ public class ItemsContoller : MonoBehaviour
         _cape.Item = _inventory.GetWeaponByType("RocsCape");
         _ocarina.Item = _inventory.GetWeaponByType("OcarinaOfWind");
         _bow.Item = _inventory.GetWeaponByType("Bow");
-    }
-
-    public void HidePanel()
-    {
-        this.gameObject.SetActive(false);
-    }
-
-    public void OpenPanel(GameObject panel)
-    {
-        
     }
 }

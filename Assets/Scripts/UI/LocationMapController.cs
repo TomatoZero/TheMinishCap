@@ -8,9 +8,8 @@ public class LocationMapController : MonoBehaviour
     [SerializeField] private RectTransform _rectTransform;
     [SerializeField] private RectTransform _viewPortTransform;
     
-    public void OpenMap(MiniMapController map)
+    public void OpenMap(Sprite sprite)
     {
-        var sprite = map.Map.Map;
         _content.sprite = sprite;
 
         var spriteWidth = sprite.bounds.size.x;
@@ -24,10 +23,19 @@ public class LocationMapController : MonoBehaviour
             _rectTransform.sizeDelta = newImageSize;
             _viewPortTransform.sizeDelta = newImageSize;
             _viewPortTransform.anchoredPosition = new Vector2(_viewPortTransform.anchoredPosition.x , newImageSize.y / 2);
-
-            _scrollRect.horizontal = false;
+        }
+        else 
+        {
+            _rectTransform.sizeDelta = new Vector2(300, 216);
+            _viewPortTransform.sizeDelta = new Vector2(300, 216);
+            _viewPortTransform.anchoredPosition = new Vector2(_viewPortTransform.anchoredPosition.x , 108F);
         }
 
         gameObject.SetActive(true);
+    }
+
+    public void HideMap()
+    {
+        gameObject.SetActive(false);
     }
 }

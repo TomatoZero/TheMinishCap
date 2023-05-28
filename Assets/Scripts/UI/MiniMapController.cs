@@ -13,14 +13,7 @@ public class MiniMapController : MonoBehaviour
     {
         if (_map != null)
         {
-            // var s = _map.MiniMap.bounds.size;
-            // _miniMap.sprite = _map.MiniMap;
-            //
-            // var rectTransform = _miniMap.GetComponent<RectTransform>();
-            // rectTransform.sizeDelta = new Vector2(s.x * 28.5f, s.y * 28.5f);
-            //
-            // var go = this.GetComponent<RectTransform>();
-            // go.sizeDelta = new Vector2(s.x * 28.5f, s.y * 28.5f);
+            _miniMap.sprite = _map.MiniMap;
         }
         else
         {
