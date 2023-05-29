@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WindowController : MonoBehaviour
@@ -8,7 +6,7 @@ public class WindowController : MonoBehaviour
 
     public string WindowName => _windowName;
 
-    public void Hide()
+    public virtual void Hide()
     {
         gameObject.SetActive(false);
     }

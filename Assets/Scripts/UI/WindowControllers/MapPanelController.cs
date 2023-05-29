@@ -9,7 +9,7 @@ public class MapPanelController : WindowController
     private void OnDisable()
     {
         _miniMaps.SetActive(true);
-        _location.HideMap();
+        _location.Hide();
     }
 
     public void OpenMap(MiniMapController map)
@@ -20,7 +20,7 @@ public class MapPanelController : WindowController
 
     public void HideMap()
     {
-        _location.HideMap();
+        _location.Hide();
         _miniMaps.SetActive(true);
     }
 }

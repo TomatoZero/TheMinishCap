@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +18,17 @@ public class StatisticPanelController : WindowController
     [SerializeField] private TMP_Text _secretSeashellCount;
     [SerializeField] private TMP_Text _heartsCounter;
     [SerializeField] private Image _heartsCounterImage;
-
+    [Space]
+    [SerializeField] private WindowController _kinstonePieceBug;
+    [SerializeField] private WindowController _tigerScrolls;
     
+    public override void Hide()
+    {
+        _kinstonePieceBug.Hide();
+        _tigerScrolls.Hide();
+        base.Hide();
+    }
+
     public void OpenSubWindow(WindowController subWindow)
     {
         subWindow.Show();
@@ -30,4 +40,6 @@ public class StatisticPanelController : WindowController
         subWindow.Hide();
         gameObject.SetActive(true);
     }
+    
+    
 }

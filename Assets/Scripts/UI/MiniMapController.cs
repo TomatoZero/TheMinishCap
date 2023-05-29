@@ -6,7 +6,7 @@ public class MiniMapController : MonoBehaviour
 {
     [SerializeField] private MapData _map;
     [SerializeField] private Image _miniMap;
-    [SerializeField] private UiContoller _uiController;
+    [SerializeField] private MenuController _menuController;
     public MapData Map => _map;
 
     private void Awake()
@@ -24,11 +24,13 @@ public class MiniMapController : MonoBehaviour
 
     public void Selected()
     {
-        _uiController.SetDescription(_map.Name);
+        _menuController.SetDescription(_map.Name);
+        _menuController.SetFirstButtonHint("Select");
     }
 
     public void Away()
     {
-        _uiController.HideDescription();
+        _menuController.HideDescription();
+        _menuController.HideButtonHint(0);
     }
 }

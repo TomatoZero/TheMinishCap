@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LocationMapController : MonoBehaviour
+public class LocationMapController : WindowController
 {
     [SerializeField] private Image _content;
     [SerializeField] private ScrollRect _scrollRect;
@@ -18,7 +18,7 @@ public class LocationMapController : MonoBehaviour
         var newImageSize = new Vector2(300  , (300 * spriteHeight) / spriteWidth);
         (_content.GetComponent<RectTransform>()).sizeDelta = newImageSize;
         
-        if(spriteWidth > spriteHeight)
+        if(spriteWidth > spriteHeight && newImageSize.y < 216)
         {
             _rectTransform.sizeDelta = newImageSize;
             _viewPortTransform.sizeDelta = newImageSize;
@@ -34,8 +34,4 @@ public class LocationMapController : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void HideMap()
-    {
-        gameObject.SetActive(false);
-    }
 }

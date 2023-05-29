@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ItemsContoller : WindowController
 {
@@ -18,6 +20,7 @@ public class ItemsContoller : WindowController
     [SerializeField] private IventoryItem _bow;
     [Space] 
     [SerializeField] private InventoryData _inventory;
+    [SerializeField] private MenuController _menuController;
     
     
     private void Awake()
@@ -44,5 +47,10 @@ public class ItemsContoller : WindowController
         _cape.Item = _inventory.GetWeaponByType("RocsCape");
         _ocarina.Item = _inventory.GetWeaponByType("OcarinaOfWind");
         _bow.Item = _inventory.GetWeaponByType("Bow");
+    }
+
+    private void OnEnable()
+    {
+        // _uiContoller.SetFirstButtonHint();
     }
 }

@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class IventoryItem : MonoBehaviour
 {
     [SerializeField] private Image _ico;
-    [SerializeField] private UiContoller _uiController;
+    [SerializeField] private MenuController _menuController;
         
     private ItemData _item;
 
@@ -38,11 +39,11 @@ public class IventoryItem : MonoBehaviour
     
     public void Selected()
     {
-        if(_item != null) _uiController.SetDescription(_item.Name);
+        if(_item != null) _menuController.SetDescription(_item.Name);
     }
 
     public void Away()
     {
-        _uiController.HideDescription();
+        _menuController.HideDescription();
     }
 }
