@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldKinstonePiece1
   m_EditorClassIdentifier: 
   _name: A gold Kinstone Piece
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: b9d4b0def2232fe41a68d54a4d53d084, type: 3}
   _type: 2
   _class: 1
   _isPlayerPiece: 0
