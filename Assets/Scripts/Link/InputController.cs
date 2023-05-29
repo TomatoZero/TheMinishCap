@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
-    [SerializeField] private Slider _attackCharge;
+    // [SerializeField] private Slider _attackCharge;
+    [SerializeField] private UiController _uiController;
     
     private PlayerControll _playerControl;
     private CharacterController _characterController;
-    private bool _isCharging = false;
+    // private bool _isCharging = false;
     private Vector2 _moveDirection;
 
     private void Awake()
@@ -52,26 +53,22 @@ public class InputController : MonoBehaviour
 
     private void ChargeFirstItemStart()
     {
-        _isCharging = true;
-        StartCoroutine(Charge());
+        _uiController.ChargeWeapon();
     }
 
     private void ChargeFirstItemCancel()
     {
-        _isCharging = false;
-        StartCoroutine(Charge());
+        _uiController.StopCharge();
     }
     
     private void ChargeSecondItemStart()
     {
-        _isCharging = true;
-        StartCoroutine(Charge());
+        _uiController.ChargeWeapon();
     }
 
     private void ChargeSecondItemCancel()
     {
-        _isCharging = false;
-        StartCoroutine(Charge());
+        _uiController.StopCharge();
     }
     
     private void OpenMenu()
@@ -90,14 +87,5 @@ public class InputController : MonoBehaviour
         _characterController.Roll();
     }
     
-    private IEnumerator Charge()
-    {
-        while (_isCharging)
-        {
-            _attackCharge.value += 1f * Time.deltaTime;
-            yield return null;   
-        }
-
-        if (!_isCharging) _attackCharge.value = 0;
-    }
+    
 }
