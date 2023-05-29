@@ -1,5 +1,6 @@
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "KinstonePieceData", menuName = "Items/KinstonePiece")]
 public class KinstonePieceData : ScriptableObject
@@ -8,13 +9,11 @@ public class KinstonePieceData : ScriptableObject
     [SerializeField] private Sprite _icon;
     [SerializeField] private KinstonePieceType _type;
     [SerializeField] private int _class;
-    [SerializeField] private int _number;
-    [SerializeField] private int _countInBag;
+    [SerializeField] private bool _isPlayerPiece;
     
     public string Name => _name;
     public Sprite Icon => _icon;
     public KinstonePieceType Type => _type;
-    public int Class => _class; 
-    public int Number => _number;
-    public int CountInBag => _countInBag;
+    public int Class => _class;
+    public bool IsPlayerPiece => _isPlayerPiece;
 }
