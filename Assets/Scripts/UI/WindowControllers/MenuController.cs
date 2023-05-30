@@ -1,27 +1,28 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private ItemsContoller _itemsPanel;
-    [SerializeField] private StatisticPanelController _statisticPanel;
-    [SerializeField] private MapPanelController _mapPanel;
-    [Space]
-    [SerializeField] private DungeonMapPanelController _dungeonMapPanel;
-    [Space]
+    [SerializeField] private UiController _uiController;
     [SerializeField] private TMP_Text _currenWindowName;
     [SerializeField] private DescriptionController _description;
     [SerializeField] private List<WindowController> _windows;
-    [SerializeField] private List<ButtonHintController> _buttonsHint;
+    [SerializeField] private EventSystem _eventSystem;
     
     private int _currentWindow;
     
-    public string WindowName
+    public string CurrentWindowName
     {
         get => _currenWindowName.text;
         set => _currenWindowName.text = value;
+    }
+
+    public GameObject FirstSelected
+    {
+        get => _eventSystem.currentSelectedGameObject;
+        set => _eventSystem.SetSelectedGameObject(value);
     }
 
     private void Awake()
@@ -30,6 +31,7 @@ public class MenuController : MonoBehaviour
         // {
         //    Debug.Log($"{device} {change}");
         // };
+        
     }
 
     private void OnEnable()
@@ -41,7 +43,7 @@ public class MenuController : MonoBehaviour
         
         _windows[0].Show();
         _currentWindow = 0;
-        WindowName = _windows[0].WindowName;
+        CurrentWindowName = _windows[0].WindowName;
     }
 
     public void NextWindow()
@@ -51,15 +53,17 @@ public class MenuController : MonoBehaviour
         if(_currentWindow + 1 < _windows.Count)
         {
             _currentWindow++;
-            WindowName = _windows[_currentWindow].WindowName;
+            CurrentWindowName = _windows[_currentWindow].WindowName;
             _windows[_currentWindow].Show();
         }
         else
         {
             _currentWindow = 0;
-            WindowName = _windows[0].WindowName;
+            CurrentWindowName = _windows[0].WindowName;
             _windows[0].Show();
         }
+        
+        HideDescription();
     }
     
     public void PrevWindow()
@@ -69,15 +73,17 @@ public class MenuController : MonoBehaviour
         if(_currentWindow - 1 >= 0)
         {
             _currentWindow--;
-            WindowName = _windows[_currentWindow].WindowName;
+            CurrentWindowName = _windows[_currentWindow].WindowName;
             _windows[_currentWindow].Show();
         }
         else
         {
             _currentWindow = _windows.Count - 1;
-            WindowName = _windows[_currentWindow].WindowName;
+            CurrentWindowName = _windows[_currentWindow].WindowName;
             _windows[^1].Show();
         }
+        
+        HideDescription();
     }
     
     public void SetDescription(string description)
@@ -90,35 +96,13 @@ public class MenuController : MonoBehaviour
         _description.Close();
     }
 
-    public void SetFirstButtonHint(IventoryItem item)
+    public void Show()
     {
-        SetButtonHint(0, item.Item.Icon);
-    }
-    
-    public void SetSecondButtonHint(IventoryItem item)
-    {
-        SetButtonHint(1, item.Item.Icon);
+        gameObject.SetActive(true);
     }
 
-    public void SetFirstButtonHint(string hint)
+    public void Hide()
     {
-        SetButtonHint(0, hint);
-    }
-
-    public void HideButtonHint(int id)
-    {
-        _buttonsHint[id].Hide();
-    }
-
-    private void SetButtonHint(int id, Sprite itemIco)
-    {
-        _buttonsHint[id].Show();
-        _buttonsHint[id].ItemIco = itemIco;
-    }
-
-    private void SetButtonHint(int id, string hint)
-    {
-        _buttonsHint[id].Show();
-        _buttonsHint[id].TextHint = hint;
+        gameObject.SetActive(false);
     }
 }

@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MiniMapController : MonoBehaviour
@@ -7,6 +7,7 @@ public class MiniMapController : MonoBehaviour
     [SerializeField] private MapData _map;
     [SerializeField] private Image _miniMap;
     [SerializeField] private MenuController _menuController;
+    [SerializeField] private UiController _uiController;
     public MapData Map => _map;
 
     private void Awake()
@@ -25,12 +26,13 @@ public class MiniMapController : MonoBehaviour
     public void Selected()
     {
         _menuController.SetDescription(_map.Name);
-        _menuController.SetFirstButtonHint("Select");
+        _uiController.SetFirstButtonHint("Select");
     }
 
     public void Away()
     {
         _menuController.HideDescription();
-        _menuController.HideButtonHint(0);
+        _uiController.HideButtonHint(0);
     }
+    
 }

@@ -1,10 +1,16 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapPanelController : WindowController
 {
     [SerializeField] private LocationMapController _location;
     [SerializeField] private GameObject _miniMaps;
+
+    private void OnEnable()
+    {
+        MenuController.FirstSelected = FirstSelected;
+    }
 
     private void OnDisable()
     {

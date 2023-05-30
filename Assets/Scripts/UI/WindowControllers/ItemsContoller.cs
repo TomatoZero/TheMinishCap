@@ -20,8 +20,7 @@ public class ItemsContoller : WindowController
     [SerializeField] private IventoryItem _bow;
     [Space] 
     [SerializeField] private InventoryData _inventory;
-    [SerializeField] private MenuController _menuController;
-    
+  
     
     private void Awake()
     {
@@ -51,6 +50,6 @@ public class ItemsContoller : WindowController
 
     private void OnEnable()
     {
-        // _uiContoller.SetFirstButtonHint();
+        MenuController.FirstSelected = FirstSelected;
     }
 }

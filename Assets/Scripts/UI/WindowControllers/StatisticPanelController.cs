@@ -21,7 +21,12 @@ public class StatisticPanelController : WindowController
     [Space]
     [SerializeField] private WindowController _kinstonePieceBug;
     [SerializeField] private WindowController _tigerScrolls;
-    
+
+    private void OnEnable()
+    {
+        MenuController.FirstSelected = FirstSelected;
+    }
+
     public override void Hide()
     {
         _kinstonePieceBug.Hide();
