@@ -12,7 +12,7 @@ public class HealthBarController : MonoBehaviour
 
     public void SetCurrentHp(int hp)
     {
-        for (var i = 0; i < hp; i++) IncreaseHp();
+        for (var i = 0; i < hp / 4; i++) IncreaseHp();
     }
     
     public void IncreaseHp()

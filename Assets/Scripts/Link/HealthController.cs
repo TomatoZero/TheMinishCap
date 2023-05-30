@@ -1,26 +1,36 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField, Min(3)] private int _baseHp;
+    [SerializeField, Min(4)] private int _baseHp;
     [SerializeField] private UiController _uiController;
 
+    private MovementController _movementController;
     private int _currentHp;
 
     private void Awake()
     {
         _uiController.SetCurrentHp(_baseHp);
         _currentHp = _baseHp;
+        _movementController = GetComponent<MovementController>();
+        
+        Debug.Log($"Current hp {_currentHp}");
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(_movementController.CurrentState == State.AfterDeath) return;
         if (other.CompareTag("Water"))
         {
             TakeDamage();
+            _movementController.FallFromEdge();
+        }
+        else if(other.CompareTag("Deep"))
+        {
+            TakeDamage();
+            _movementController.FallFromEdge();
         }
     }
 
@@ -30,6 +40,8 @@ public class HealthController : MonoBehaviour
             throw new Exception("Player hp is less then or equal to zero ");
         
         _currentHp--;
-        _uiController.RestoreHp();
+        
+        Debug.Log($"Current hp {_currentHp}");
+        _uiController.ReduceHp();
     }
 }

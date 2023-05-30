@@ -7,7 +7,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     private HealthController _healthController;
-    private MovementConroller _movementController;
+    private MovementController _movementController;
 
     private List<SpriteRenderer> _childSprite;
 
@@ -22,7 +22,7 @@ public class CharacterController : MonoBehaviour
         _childSprite = this.GetComponents<SpriteRenderer>().ToList();
 
         _healthController = GetComponent<HealthController>();
-        _movementController = GetComponent<MovementConroller>();
+        _movementController = GetComponent<MovementController>();
     }
 
     public void ChangeLayer(string layer)
@@ -39,11 +39,5 @@ public class CharacterController : MonoBehaviour
     public void Roll() => _movementController.Roll();
     public void ClimbingStart() => _movementController.ClimbingStart();
     public void ClimbingEnd() => _movementController.ClimbingEnd();
-
-    public enum State
-    {
-        Ground,
-        Ladder,
-        Roll
-    }
+    public void Fall() => _movementController.FallFromEdge();
 }
