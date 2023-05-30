@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8917657017319775124}
   - component: {fileID: 8917657017319775125}
   - component: {fileID: 8917657017319775121}
+  - component: {fileID: 6580224133196047551}
+  - component: {fileID: 6676185524730419155}
   m_Layer: 0
   m_Name: Link
   m_TagString: Player
@@ -146,8 +148,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ceeb6ef4e4b1b4ca4a28f107f170da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _rowSpeedMultiplier: 3
+--- !u!114 &6580224133196047551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917657017319775213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2b70cbf20c1f54ab47254d1bc9cdb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseHp: 3
+  _uiController: {fileID: 0}
+--- !u!114 &6676185524730419155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917657017319775213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00a74c54645e15b45b1e4517916c5178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  _rowSpeedMultiplier: 5
   _climbSpeedMultiplier: 0.5
-  _hoveringSpeedMultiplier: 0.25
-  _rollTime: 0.2
+  _hoveringSpeedMultiplier: 0
+  _rollTime: 0.5

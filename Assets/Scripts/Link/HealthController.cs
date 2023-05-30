@@ -13,6 +13,7 @@ public class HealthController : MonoBehaviour
     private void Awake()
     {
         _uiController.SetCurrentHp(_baseHp);
+        _currentHp = _baseHp;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

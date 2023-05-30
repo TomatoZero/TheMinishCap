@@ -22,7 +22,6 @@ public class InputController : MonoBehaviour
     private void Update()
     {
         _characterController.MoveDirection = _moveDirection.normalized;
-        // _characterController.Move(_moveDirection);
     }
 
     private void OnEnable()
