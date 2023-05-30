@@ -7,17 +7,15 @@ public class HealthBarController : MonoBehaviour
     [SerializeField] private GameObject _heartPrefab;
 
     private List<HeartUiController> _hearts = new List<HeartUiController>();
-    private int _currentHeartId = 0; 
+    private int _currentHeartId; 
     private float _currentHeartStatus;
 
-    private void Awake()
+    public void SetCurrentHp(int hp)
     {
-        AddHeart();
-        AddHeart();
-        AddHeart();
+        for (var i = 0; i < hp; i++) IncreaseHp();
     }
-
-    public void AddHeart()
+    
+    public void IncreaseHp()
     {
         foreach (var heart in _hearts) heart.SetFullHp();
 
@@ -27,7 +25,7 @@ public class HealthBarController : MonoBehaviour
         _currentHeartId = _hearts.Count - 1;
     }
 
-    public void TakeDamage()
+    public void ReduceHp()
     {
         if (_currentHeartId < 0 || _currentHeartId > _hearts.Count - 1)
         {
@@ -55,7 +53,7 @@ public class HealthBarController : MonoBehaviour
         }
     }
 
-    public void Heal()
+    public void RestoreHp()
     {
         if (_currentHeartId < 0)
         {

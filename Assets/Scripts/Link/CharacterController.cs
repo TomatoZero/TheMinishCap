@@ -51,14 +51,6 @@ public class CharacterController : MonoBehaviour
         _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Water"))
-        {
-            Debug.Log($"the player has sunk");
-        }
-    }
-
     public void ChangeLayer(string layer)
     {
         foreach (var spriteRenderer in _childSprite)

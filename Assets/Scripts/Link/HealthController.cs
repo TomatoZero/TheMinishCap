@@ -5,12 +5,30 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField, Min(1)] private int _baseHp;
+    [SerializeField, Min(3)] private int _baseHp;
+    [SerializeField] private UiController _uiController;
 
     private int _currentHp;
 
+    private void Awake()
+    {
+        _uiController.SetCurrentHp(_baseHp);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        throw new NotImplementedException();
+        if (other.CompareTag("Water"))
+        {
+            TakeDamage();
+        }
+    }
+
+    public void TakeDamage()
+    {
+        if (_currentHp <= 0)
+            throw new Exception("Player hp is less then or equal to zero ");
+        
+        _currentHp--;
+        _uiController.RestoreHp();
     }
 }
