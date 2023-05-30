@@ -28,12 +28,15 @@ public class CharacterController : MonoBehaviour
             if(_currentState != State.Roll)
             {
                 _moveDirection = value;
+                
+                if (Math.Abs(_moveDirection.x) > Math.Abs(_moveDirection.y)) _moveDirection.y = 0;
+                else _moveDirection.x = 0;
+                
                 if (_currentState == State.Ladder)
                     _moveDirection.x = 0;
             }
         }
     }
-    
 
     private void Awake()
     {
@@ -46,6 +49,14 @@ public class CharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Water"))
+        {
+            Debug.Log($"the player has sunk");
+        }
     }
 
     public void ChangeLayer(string layer)
@@ -64,9 +75,6 @@ public class CharacterController : MonoBehaviour
         if(_currentState != State.Ladder & _currentState != State.Roll)
         {
             _currentSpeed = _moveSpeed * _rowSpeedMultiplier;
-
-            if (Math.Abs(_moveDirection.x) > Math.Abs(_moveDirection.y)) _moveDirection.y = 0;
-            else _moveDirection.x = 0;
 
             StartCoroutine(StopRolling());
             _currentState = State.Roll;
