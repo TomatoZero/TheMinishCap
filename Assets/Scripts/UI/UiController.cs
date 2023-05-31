@@ -22,6 +22,7 @@ public class UiController : MonoBehaviour
 
     public void NextWindow() => _menuController.NextWindow();
     public void PrevWindow() => _menuController.PrevWindow();
+    public void SubWindowClose() => _menuController.CloseSubWindow();
     
     public void OpenMenu()
     {

@@ -33,9 +33,9 @@ public class MenuController : MonoBehaviour
             window.Hide();
         }
 
-        _windows[1].Show();
-        _currentWindow = 1;
-        CurrentWindowName = _windows[1].WindowName;
+        _windows[0].Show();
+        _currentWindow = 0;
+        CurrentWindowName = _windows[0].WindowName;
     }
 
     public void NextWindow()
@@ -87,9 +87,12 @@ public class MenuController : MonoBehaviour
         _currentSubWindow = subWindow;
     }
 
-    public void CloseSubWindow(SubWindowController subWindow)
+    public void CloseSubWindow()
     {
-        subWindow.Hide();
+        if(_currentSubWindow == null) return;
+        
+        _currentSubWindow.Hide();
+        _currentSubWindow = null;
     }
 
     public void SetDescription(string description)

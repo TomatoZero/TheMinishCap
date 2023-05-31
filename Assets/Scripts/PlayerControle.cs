@@ -514,6 +514,15 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""dadce9b7-6f68-4d6e-b1e5-cd4dfbdd7a5b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -824,6 +833,28 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                     ""action"": ""PrevWindow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e712c606-2122-4b1c-a179-0b9c6fd0dab8"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e3c90b1-0ad6-4621-b677-c9a342b0b013"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -875,6 +906,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
         m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
         m_UI_NextWindow = m_UI.FindAction("NextWindow", throwIfNotFound: true);
         m_UI_PrevWindow = m_UI.FindAction("PrevWindow", throwIfNotFound: true);
+        m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1014,6 +1046,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Point;
     private readonly InputAction m_UI_NextWindow;
     private readonly InputAction m_UI_PrevWindow;
+    private readonly InputAction m_UI_Back;
     public struct UIActions
     {
         private @PlayerControll m_Wrapper;
@@ -1025,6 +1058,7 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
         public InputAction @Point => m_Wrapper.m_UI_Point;
         public InputAction @NextWindow => m_Wrapper.m_UI_NextWindow;
         public InputAction @PrevWindow => m_Wrapper.m_UI_PrevWindow;
+        public InputAction @Back => m_Wrapper.m_UI_Back;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1055,6 +1089,9 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 @PrevWindow.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPrevWindow;
                 @PrevWindow.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPrevWindow;
                 @PrevWindow.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPrevWindow;
+                @Back.started -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1080,6 +1117,9 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
                 @PrevWindow.started += instance.OnPrevWindow;
                 @PrevWindow.performed += instance.OnPrevWindow;
                 @PrevWindow.canceled += instance.OnPrevWindow;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
             }
         }
     }
@@ -1120,5 +1160,6 @@ public partial class @PlayerControll : IInputActionCollection2, IDisposable
         void OnPoint(InputAction.CallbackContext context);
         void OnNextWindow(InputAction.CallbackContext context);
         void OnPrevWindow(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }

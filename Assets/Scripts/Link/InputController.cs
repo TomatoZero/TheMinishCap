@@ -49,6 +49,7 @@ public class InputController : MonoBehaviour
         _UiAction.Close.performed += CloseMenu;
         _UiAction.NextWindow.performed += NextWindowOnPerformed;
         _UiAction.PrevWindow.performed += PrevWindowOnPerformed;
+        _UiAction.Back.performed += HideSubWindow;
     }
 
     private void OnDisable()
@@ -75,6 +76,7 @@ public class InputController : MonoBehaviour
         _UiAction.Close.performed -= CloseMenu;
         _UiAction.NextWindow.performed -= NextWindowOnPerformed;
         _UiAction.PrevWindow.performed -= PrevWindowOnPerformed;
+        _UiAction.Back.performed -= HideSubWindow;
     }
 
     private void DeviceChanged(InputDevice device, InputDeviceChange change)
@@ -153,5 +155,11 @@ public class InputController : MonoBehaviour
     {
         if(_uiController.IsMenuOpen)
             _uiController.PrevWindow();
+    }
+
+    private void HideSubWindow(InputAction.CallbackContext obj)
+    {
+        if(_uiController.IsMenuOpen)
+            _uiController.SubWindowClose();
     }
 }
