@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TigerScrollController : WindowController
+public class TigerScrollController : SubWindowController
 {
     [SerializeField] private GameObject _container;
     [SerializeField] private Image _description;

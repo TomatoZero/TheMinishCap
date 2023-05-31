@@ -28,6 +28,9 @@ public class InputController : MonoBehaviour
     {
         _playerControl.Enable();
 
+        InputSystem.onDeviceChange += DeviceChanged;
+
+        _playerAction.Enable();
         _playerAction.FirstItem.started += ChargeFirstItemStart;
         _playerAction.FirstItem.canceled += ChargeFirstItemCancel;
         
@@ -51,7 +54,8 @@ public class InputController : MonoBehaviour
     private void OnDisable()
     {
         _playerControl.Disable();
-
+        _playerAction.Disable();
+        
         _playerAction.FirstItem.started -= ChargeFirstItemStart;
         _playerAction.FirstItem.canceled -= ChargeFirstItemCancel;
         
@@ -73,7 +77,16 @@ public class InputController : MonoBehaviour
         _UiAction.PrevWindow.performed -= PrevWindowOnPerformed;
     }
 
+    private void DeviceChanged(InputDevice device, InputDeviceChange change)
+    {
+        // switch (change)
+        // {
+        //     case In
+        // }
 
+        Debug.Log($"device: {device} change: {change}");
+    }
+    
     private void MoveDirection(InputAction.CallbackContext context)
     {
         _moveDirection = context.ReadValue<Vector2>();
