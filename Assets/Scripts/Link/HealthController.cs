@@ -32,6 +32,11 @@ public class HealthController : MonoBehaviour
             TakeDamage();
             _movementController.FallFromEdge();
         }
+        else if(other.CompareTag("Enemy"))
+        {
+            TakeDamage();
+            // _movementController.PushAway();
+        }
     }
 
     public void TakeDamage()

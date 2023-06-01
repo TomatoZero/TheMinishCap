@@ -10,11 +10,7 @@ public class WeaponsController : MonoBehaviour
         _firstWeapon.UseWeapon();
         UseWeapon?.Invoke(State.MeleeAttack);
     }
-
-    public void HoldFirstWeapon()
-    {
-    }
-
+    
     public void ReleaseFirstWeapon()
     {
         _firstWeapon.ReleaseWeapon();

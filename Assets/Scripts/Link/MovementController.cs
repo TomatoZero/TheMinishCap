@@ -11,8 +11,12 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _climbSpeedMultiplier;
     [SerializeField] private float _hoveringSpeedMultiplier;
     [SerializeField] private float _rollTime = 0.5f;
-
+    [Space]
+    [SerializeField] private float _pushSpeed;
+    [SerializeField] private float _pushTime;
+    
     private Vector2 _moveDirection;
+    private Vector2 _directionView;
     private float _currentSpeed;
     private float _weaponHoldMultiplier = 1;
 
@@ -38,8 +42,11 @@ public class MovementController : MonoBehaviour
                 
                 if (_currentState == State.Ladder)
                     _moveDirection.x = 0;
+
+                if (_moveDirection != Vector2.zero)
+                    _directionView = _moveDirection;
                 
-                Rotation?.Invoke(_moveDirection);
+                Rotation?.Invoke(_directionView);
             }
         }
     }
@@ -55,20 +62,24 @@ public class MovementController : MonoBehaviour
         {
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
         }
+        if (_currentState == State.Push)
+        {
+            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
+        }
     }
 
     public void OnEnable()
     {
         WeaponsController.UseWeapon += UseWeapon;
         WeaponsController.ReleaseWeapon += ReleaseWeapon;
-        BaseWeapon.HoldWeapon += WeaponHold;
+        BaseWeapon.HoldWeaponEvent += WeaponEventHold;
     }
 
     private void OnDisable()
     {
         WeaponsController.UseWeapon -= UseWeapon;
         WeaponsController.ReleaseWeapon -= ReleaseWeapon;        
-        BaseWeapon.HoldWeapon -= WeaponHold;
+        BaseWeapon.HoldWeaponEvent -= WeaponEventHold;
     }
 
     public void Roll()
@@ -113,13 +124,26 @@ public class MovementController : MonoBehaviour
         _currentState = State.MeleeAttack;
     }
 
-    private void WeaponHold()
+    private void WeaponEventHold()
     {
         _currentState = State.HoldWeapon;
     }
     
     private void ReleaseWeapon()
     {
+        _currentState = State.Ground;
+    }
+    
+    public void PushAway(Vector2 direction)
+    {
+        _currentState = State.Push;
+        _moveDirection = direction;
+        StartCoroutine(FinishPush());
+    }
+
+    private IEnumerator FinishPush()
+    {
+        yield return new WaitForSeconds(_pushTime);
         _currentState = State.Ground;
     }
 

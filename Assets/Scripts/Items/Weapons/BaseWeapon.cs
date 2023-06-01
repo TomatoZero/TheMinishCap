@@ -9,9 +9,10 @@ public class BaseWeapon : MonoBehaviour
 
     protected bool IsRelease = false;
     protected bool IsHold = false;
+    protected Vector2 Direction;
     
     public delegate void HoldWeaponEventHandler();
-    public static event HoldWeaponEventHandler HoldWeapon;
+    public static event HoldWeaponEventHandler HoldWeaponEvent;
     
     private void Awake()
     {
@@ -40,6 +41,7 @@ public class BaseWeapon : MonoBehaviour
         var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         targetAngle += 90;
         transform.rotation = Quaternion.Euler(0f, 0f, targetAngle);
+        Direction = direction;
         IsHold = true;
     }
     
@@ -49,9 +51,9 @@ public class BaseWeapon : MonoBehaviour
         Debug.Log($"Base attack");
     }
 
-    protected void Hold()
+    protected void HoldWeapon()
     {
-        HoldWeapon?.Invoke();
+        HoldWeaponEvent?.Invoke();
     }
     
     public virtual void ReleaseWeapon()

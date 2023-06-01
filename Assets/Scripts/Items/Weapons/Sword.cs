@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class Sword : BaseWeapon
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.TryGetComponent(out EnemyHealthController enemy))
         {
-            Debug.Log($"Enemy {other.name} hit");
+            enemy.TakeDamage(Direction);
         }
     }
 
@@ -26,7 +25,7 @@ public class Sword : BaseWeapon
     
     private IEnumerator Hold()
     {
-        base.Hold();
+        HoldWeapon();
         while (true)
         {
             yield return new WaitForSeconds(0.1f);
@@ -40,7 +39,7 @@ public class Sword : BaseWeapon
 
     private IEnumerator DoAttack()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         StartCoroutine(Hold());
 
     }

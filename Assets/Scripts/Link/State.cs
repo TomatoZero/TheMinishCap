@@ -5,5 +5,6 @@ public enum State
     Roll,
     AfterDeath,
     MeleeAttack,
-    HoldWeapon
+    HoldWeapon,
+    Push
 }
