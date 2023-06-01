@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    private HealthController _healthController;
-    private MovementController _movementController;
-
+    [SerializeField] private HealthController _healthController;
+    [SerializeField] private MovementController _movementController;
+    [SerializeField] private WeaponsController _weaponsController;
     private List<SpriteRenderer> _childSprite;
 
     public Vector2 MoveDirection
@@ -20,9 +20,6 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         _childSprite = this.GetComponents<SpriteRenderer>().ToList();
-
-        _healthController = GetComponent<HealthController>();
-        _movementController = GetComponent<MovementController>();
     }
 
     public void ChangeLayer(string layer)
@@ -40,4 +37,7 @@ public class CharacterController : MonoBehaviour
     public void ClimbingStart() => _movementController.ClimbingStart();
     public void ClimbingEnd() => _movementController.ClimbingEnd();
     public void Fall() => _movementController.FallFromEdge();
+
+    public void UseFirstWeapon() => _weaponsController.UseFirstWeapon();
+    public void ReleaseFirstWeapon() => _weaponsController.ReleaseFirstWeapon();
 }

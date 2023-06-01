@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D _rigidbody;
+    [Space]
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rowSpeedMultiplier = 5f;
     [SerializeField] private float _climbSpeedMultiplier;
     [SerializeField] private float _hoveringSpeedMultiplier;
     [SerializeField] private float _rollTime = 0.5f;
-    
-    private Rigidbody2D _rigidbody;
+
     private Vector2 _moveDirection;
     private float _currentSpeed;
+    private float _weaponHoldMultiplier = 1;
 
     private State _currentState = State.Ground;
 
     public State CurrentState => _currentState;
+    
+    public delegate void RotateEventHandler(Vector2 direction);
+    public static event RotateEventHandler Rotation;
+
 
     public Vector2 MoveDirection
     {
@@ -32,20 +38,37 @@ public class MovementController : MonoBehaviour
                 
                 if (_currentState == State.Ladder)
                     _moveDirection.x = 0;
+                
+                Rotation?.Invoke(_moveDirection);
             }
         }
     }
 
     private void Awake()
     {
-        _rigidbody = this.GetComponent<Rigidbody2D>();
         _currentSpeed = _moveSpeed;
     }
 
     private void FixedUpdate()
     {
-        if(_currentState != State.AfterDeath)
-            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
+        if(_currentState != State.AfterDeath && _currentState != State.MeleeAttack)
+        {
+            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
+        }
+    }
+
+    public void OnEnable()
+    {
+        WeaponsController.UseWeapon += UseWeapon;
+        WeaponsController.ReleaseWeapon += ReleaseWeapon;
+        BaseWeapon.HoldWeapon += WeaponHold;
+    }
+
+    private void OnDisable()
+    {
+        WeaponsController.UseWeapon -= UseWeapon;
+        WeaponsController.ReleaseWeapon -= ReleaseWeapon;        
+        BaseWeapon.HoldWeapon -= WeaponHold;
     }
 
     public void Roll()
@@ -83,6 +106,21 @@ public class MovementController : MonoBehaviour
         _rigidbody.position += reverseDirection * 0.5f;
         _moveDirection = Vector2.zero;
         StartCoroutine(WaitAfterDeath());
+    }
+
+    private void UseWeapon(State state)
+    {
+        _currentState = State.MeleeAttack;
+    }
+
+    private void WeaponHold()
+    {
+        _currentState = State.HoldWeapon;
+    }
+    
+    private void ReleaseWeapon()
+    {
+        _currentState = State.Ground;
     }
 
     private IEnumerator WaitAfterDeath()

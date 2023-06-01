@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HealthBarController : MonoBehaviour
@@ -12,6 +13,10 @@ public class HealthBarController : MonoBehaviour
 
     public void SetCurrentHp(int hp)
     {
+        while (transform.childCount > 0) {
+            DestroyImmediate(transform.GetChild(0).gameObject);
+        }
+        
         for (var i = 0; i < hp / 4; i++) IncreaseHp();
     }
     

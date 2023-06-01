@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ceeb6ef4e4b1b4ca4a28f107f170da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthController: {fileID: 0}
+  _movementController: {fileID: 0}
+  _weaponsController: {fileID: 0}
 --- !u!114 &6580224133196047551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,8 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a74c54645e15b45b1e4517916c5178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _rowSpeedMultiplier: 5
+  _moveSpeed: 5
+  _rowSpeedMultiplier: 3
   _climbSpeedMultiplier: 0.5
   _hoveringSpeedMultiplier: 0
-  _rollTime: 0.5
+  _rollTime: 0.1

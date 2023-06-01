@@ -5,7 +5,8 @@ public class InputController : MonoBehaviour
 {
     [SerializeField] private UiController _uiController;
     [SerializeField] private CharacterController _characterController;
-
+    // [SerializeField] private WeaponsController _weaponsController;
+    
     private PlayerControll _playerControl;
     private PlayerControll.PlayerActions _playerAction;
     private PlayerControll.UIActions _UiAction;
@@ -31,11 +32,11 @@ public class InputController : MonoBehaviour
         InputSystem.onDeviceChange += DeviceChanged;
 
         _playerAction.Enable();
-        _playerAction.FirstItem.started += ChargeFirstItemStart;
-        _playerAction.FirstItem.canceled += ChargeFirstItemCancel;
+        _playerAction.FirstItem.started += UseFirstWeapon;
+        _playerAction.FirstItem.canceled += ReleaseFirstWeapon;
         
-        _playerAction.SecondItem.started += ChargeSecondItemStart;
-        _playerAction.SecondItem.canceled += ChargeSecondItemCancel;
+        _playerAction.SecondItem.started += UseSecondWeapon;
+        _playerAction.SecondItem.canceled += ReleaseSecondWeapon;
 
         _playerAction.Menu.performed += OpenMenu;
         _playerAction.Roll.performed += Roll;
@@ -57,11 +58,11 @@ public class InputController : MonoBehaviour
         _playerControl.Disable();
         _playerAction.Disable();
         
-        _playerAction.FirstItem.started -= ChargeFirstItemStart;
-        _playerAction.FirstItem.canceled -= ChargeFirstItemCancel;
+        _playerAction.FirstItem.started -= UseFirstWeapon;
+        _playerAction.FirstItem.canceled -= ReleaseFirstWeapon;
         
-        _playerAction.SecondItem.started -= ChargeSecondItemStart;
-        _playerAction.SecondItem.canceled -= ChargeSecondItemCancel;
+        _playerAction.SecondItem.started -= UseSecondWeapon;
+        _playerAction.SecondItem.canceled -= ReleaseSecondWeapon;
 
         _playerAction.Menu.performed -= OpenMenu;
         _playerAction.Roll.performed -= Roll;
@@ -81,12 +82,7 @@ public class InputController : MonoBehaviour
 
     private void DeviceChanged(InputDevice device, InputDeviceChange change)
     {
-        // switch (change)
-        // {
-        //     case In
-        // }
-
-        Debug.Log($"device: {device} change: {change}");
+        // Debug.Log($"device: {device} change: {change}");
     }
     
     private void MoveDirection(InputAction.CallbackContext context)
@@ -99,22 +95,24 @@ public class InputController : MonoBehaviour
         _moveDirection = Vector2.zero;
     }
 
-    private void ChargeFirstItemStart(InputAction.CallbackContext context)
+    private void UseFirstWeapon(InputAction.CallbackContext context)
+    {
+        // Debug.Log($"Input controller use weapon");
+        _characterController.UseFirstWeapon();
+    }
+
+    private void ReleaseFirstWeapon(InputAction.CallbackContext context)
+    {
+        // Debug.Log($"Input controller release weapon");
+        _characterController.ReleaseFirstWeapon();
+    }
+
+    private void UseSecondWeapon(InputAction.CallbackContext context)
     {
         _uiController.ChargeWeapon();
     }
 
-    private void ChargeFirstItemCancel(InputAction.CallbackContext context)
-    {
-        _uiController.StopCharge();
-    }
-
-    private void ChargeSecondItemStart(InputAction.CallbackContext context)
-    {
-        _uiController.ChargeWeapon();
-    }
-
-    private void ChargeSecondItemCancel(InputAction.CallbackContext context)
+    private void ReleaseSecondWeapon(InputAction.CallbackContext context)
     {
         _uiController.StopCharge();
     }
