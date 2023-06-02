@@ -34,7 +34,7 @@ public class HealthController : MonoBehaviour
         }
         else if(other.CompareTag("Enemy"))
         {
-            TakeDamage();
+            // TakeDamage();
             // _movementController.PushAway();
         }
     }

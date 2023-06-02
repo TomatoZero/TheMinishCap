@@ -15,8 +15,8 @@ TagManager:
   - Water
   - UI
   - EndScene
-  - Lvl0
-  - Lvl1
+  - 
+  - 
   - 
   - 
   - 
@@ -49,6 +49,12 @@ TagManager:
     locked: 0
   - name: Lvl1
     uniqueID: 1624592883
+    locked: 0
+  - name: Lvl2
+    uniqueID: 2508668457
+    locked: 0
+  - name: LvlColiders
+    uniqueID: 3307741563
     locked: 0
   - name: UI
     uniqueID: 2687890943

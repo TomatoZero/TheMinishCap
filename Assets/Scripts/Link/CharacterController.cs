@@ -28,9 +28,6 @@ public class CharacterController : MonoBehaviour
         {
             spriteRenderer.sortingLayerName = layer;
         }
-
-        var layInt = LayerMask.NameToLayer(layer);
-        gameObject.layer = layInt;
     }
 
     public void Roll() => _movementController.Roll();

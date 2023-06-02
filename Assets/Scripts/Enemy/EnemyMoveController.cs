@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class EnemyMoveController : BaseMovementController
+public class EnemyMoveController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private float _pushSpeed;
