@@ -33,11 +33,9 @@ public class MovementController : MonoBehaviour
         get => _moveDirection;
         set
         {
-            if (_currentState == State.Roll || _currentState == State.Push) return;
+            if (_currentState == State.Roll || _currentState == State.PushAway) return;
             
             _moveDirection = value;
-                
-            Debug.Log($"{_currentState} {_moveDirection}");
 
             var xAbs = Math.Abs(_moveDirection.x);
             var yAbs = Math.Abs(_moveDirection.y);
@@ -49,9 +47,11 @@ public class MovementController : MonoBehaviour
                 _moveDirection.x = 0;
 
             if (_moveDirection != Vector2.zero)
+            {
                 _directionView = _moveDirection;
-                
-            Rotation?.Invoke(_directionView);
+                Rotation?.Invoke(_directionView);
+            }
+
         }
     }
 
@@ -66,7 +66,7 @@ public class MovementController : MonoBehaviour
         {
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
         }
-        if (_currentState == State.Push)
+        if (_currentState == State.PushAway)
         {
             // Debug.Log("Fixed update");
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
@@ -142,7 +142,7 @@ public class MovementController : MonoBehaviour
     public void PushAway(Vector2 direction)
     {
         MoveDirection = direction;
-        _currentState = State.Push;
+        _currentState = State.PushAway;
         StartCoroutine(FinishPush());
     }
 
@@ -164,5 +164,10 @@ public class MovementController : MonoBehaviour
         _currentSpeed = _moveSpeed;
         _currentState = State.Ground;
     }
-
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, _directionView * 1f);
+    }
 }

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SnakeEyesController : EnemyEyesController
 {
@@ -8,12 +7,16 @@ public class SnakeEyesController : EnemyEyesController
 
     protected override void ItIsVisible(Vector2 enemyPosition)
     {
+        // Debug.Log("check player");
+        
         var snakePos = transform.position;
 
-        if (Math.Abs(snakePos.x - enemyPosition.x) < 0.1 || Math.Abs(snakePos.y - enemyPosition.y) < 0.1)
+        if (Math.Abs(snakePos.x - enemyPosition.x) < 0.2 || Math.Abs(snakePos.y - enemyPosition.y) < 0.2)
         {
             Debug.Log($"{enemyPosition}");
             _attackEvent.Invoke(enemyPosition);
         }
     }
+    
+    
 }

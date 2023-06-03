@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemyAttackController : MonoBehaviour
 {
     [SerializeField] private UnityEvent _attackEvent;
+    [SerializeField] private EnemyMoveController _movementController;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,6 +13,16 @@ public class EnemyAttackController : MonoBehaviour
         {
             Debug.Log("Player hit");
             _attackEvent.Invoke();
+
+            if (other.TryGetComponent(out DamageController player))
+            {
+                player.EnemyDamage(1, transform.position);
+            }
+            else
+            {
+                throw new Exception("Object with player tag and without DamgeController");
+            }
+            
         }
     }
 
