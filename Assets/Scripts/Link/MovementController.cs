@@ -33,21 +33,25 @@ public class MovementController : MonoBehaviour
         get => _moveDirection;
         set
         {
-            if(_currentState != State.Roll)
-            {
-                _moveDirection = value;
+            if (_currentState == State.Roll || _currentState == State.Push) return;
+            
+            _moveDirection = value;
                 
-                if (Math.Abs(_moveDirection.x) > Math.Abs(_moveDirection.y)) _moveDirection.y = 0;
-                else _moveDirection.x = 0;
-                
-                if (_currentState == State.Ladder)
-                    _moveDirection.x = 0;
+            Debug.Log($"{_currentState} {_moveDirection}");
 
-                if (_moveDirection != Vector2.zero)
-                    _directionView = _moveDirection;
+            var xAbs = Math.Abs(_moveDirection.x);
+            var yAbs = Math.Abs(_moveDirection.y);
                 
-                Rotation?.Invoke(_directionView);
-            }
+            if (xAbs > yAbs && xAbs != 1) _moveDirection.y = 0;
+            else if(yAbs > xAbs && yAbs != 1) _moveDirection.x = 0;
+                
+            if (_currentState == State.Ladder)
+                _moveDirection.x = 0;
+
+            if (_moveDirection != Vector2.zero)
+                _directionView = _moveDirection;
+                
+            Rotation?.Invoke(_directionView);
         }
     }
 
@@ -64,6 +68,7 @@ public class MovementController : MonoBehaviour
         }
         if (_currentState == State.Push)
         {
+            // Debug.Log("Fixed update");
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
         }
     }
@@ -136,8 +141,8 @@ public class MovementController : MonoBehaviour
     
     public void PushAway(Vector2 direction)
     {
+        MoveDirection = direction;
         _currentState = State.Push;
-        _moveDirection = direction;
         StartCoroutine(FinishPush());
     }
 

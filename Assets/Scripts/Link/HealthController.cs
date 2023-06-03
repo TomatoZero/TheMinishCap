@@ -1,55 +1,48 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthController : MonoBehaviour
 {
     [SerializeField, Min(4)] private int _baseHp;
-    [SerializeField] private UiController _uiController;
-    [SerializeField] private MovementController _movementController;
+    [SerializeField] private UnityEvent _playerDie;
+    [SerializeField] private PlayerHpEvent _playerTakeDamageEvent;
+    [SerializeField] private PlayerHpEvent _playerHealEvent;
+    [SerializeField] private PlayerHpEvent _playerSetHpHpEvent;
 
     private int _currentHp;
     private int _currentMaxHp;
 
     private void Awake()
     {
-        _uiController.SetCurrentHp(_baseHp);
+        _playerSetHpHpEvent.Invoke(_baseHp);
         _currentHp = _baseHp;
         _currentMaxHp = _baseHp;
 
         Debug.Log($"Current hp {_currentHp}");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (_movementController.CurrentState == State.AfterDeath) return;
-        if (other.CompareTag("Water"))
-        {
-            TakeDamage();
-            _movementController.FallFromEdge();
-        }
-        else if (other.CompareTag("Deep"))
-        {
-            TakeDamage();
-            _movementController.FallFromEdge();
-        }
-        else if(other.CompareTag("Enemy"))
-        {
-            // TakeDamage();
-            // _movementController.PushAway();
-        }
-    }
-
     public void TakeDamage()
     {
-        if (_currentHp <= 0)
-            throw new Exception("Player hp is less then or equal to zero ");
+        TakeDamage(1);
+    }
+    
+    public void TakeDamage(int hp)
+    {
+        if (_currentHp <= 0) throw new Exception("Player hp less or equal zero");
 
-        _currentHp--;
-
-        _uiController.ReduceHp();
+        _currentHp -= hp;
+        
+        if(_currentHp <= 0)
+        {
+            Debug.Log("Player die");
+            _playerDie.Invoke();
+        }
+        
+        _playerTakeDamageEvent.Invoke(hp);
     }
 
-    public void Heal()
+    public void Heal(int hp)
     {
         if (_currentHp == _currentMaxHp)
         {
@@ -57,14 +50,19 @@ public class HealthController : MonoBehaviour
             return;
         }
 
-        _currentHp++;
-        _uiController.RestoreHp();
+        _currentHp += hp;
+
+        if (_currentHp > _currentMaxHp)
+            _currentHp = _currentMaxHp;
+        
+        _playerHealEvent.Invoke(hp);
     }
 
     public void IncreaseHp()
     {
         _currentMaxHp += 4;
         _currentHp = _currentMaxHp;
-        _uiController.SetCurrentHp(_currentHp);
+        
+        _playerSetHpHpEvent.Invoke(_currentHp);
     }
 }

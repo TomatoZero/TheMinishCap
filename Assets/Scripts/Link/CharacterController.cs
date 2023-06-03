@@ -33,7 +33,6 @@ public class CharacterController : MonoBehaviour
     public void Roll() => _movementController.Roll();
     public void ClimbingStart() => _movementController.ClimbingStart();
     public void ClimbingEnd() => _movementController.ClimbingEnd();
-    public void Fall() => _movementController.FallFromEdge();
 
     public void UseFirstWeapon() => _weaponsController.UseFirstWeapon();
     public void ReleaseFirstWeapon() => _weaponsController.ReleaseFirstWeapon();

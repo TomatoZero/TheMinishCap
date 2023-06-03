@@ -16,12 +16,15 @@ public class HealthBarController : MonoBehaviour
         while (transform.childCount > 0) {
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
+
+        _hearts = new List<HeartUiController>();
         
         for (var i = 0; i < hp / 4; i++) IncreaseHp();
     }
     
     public void IncreaseHp()
     {
+        Debug.Log("11111111111111");
         foreach (var heart in _hearts) heart.SetFullHp();
 
         var newHeart =  Instantiate(_heartPrefab, this.transform);
@@ -30,7 +33,20 @@ public class HealthBarController : MonoBehaviour
         _currentHeartId = _hearts.Count - 1;
     }
 
-    public void ReduceHp()
+    public void ReduceHp(int hp = 1)
+    {
+        if (hp <= 0) throw new ArgumentOutOfRangeException(nameof(hp));
+
+        for (var i = 0; i < hp; i++) ReduceHp();
+    }
+
+    public void RestoreHp(int hp = 1)
+    {
+        if (hp <= 0) throw new ArgumentOutOfRangeException(nameof(hp)); 
+        for (var i = 0; i < hp; i++) RestoreHp();
+    }
+
+    private void ReduceHp()
     {
         if (_currentHeartId < 0 || _currentHeartId > _hearts.Count - 1)
         {
@@ -54,11 +70,10 @@ public class HealthBarController : MonoBehaviour
         {
             _currentHeartId--;
             Debug.Log($"Take damage decree {_currentHeartId}");
-
         }
     }
 
-    public void RestoreHp()
+    private void RestoreHp()
     {
         if (_currentHeartId < 0)
         {

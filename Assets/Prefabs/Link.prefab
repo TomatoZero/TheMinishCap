@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 8917657017319775121}
   - component: {fileID: 6580224133196047551}
   - component: {fileID: 6676185524730419155}
+  - component: {fileID: 4227109226498632798}
+  - component: {fileID: 3996715834331739530}
   m_Layer: 0
   m_Name: Link
   m_TagString: Player
@@ -164,7 +166,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseHp: 3
-  _uiController: {fileID: 0}
+  _playerDie:
+    m_PersistentCalls:
+      m_Calls: []
+  _playerTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _playerHealEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _playerSetHpHpEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6676185524730419155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,8 +190,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a74c54645e15b45b1e4517916c5178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 0}
   _moveSpeed: 5
   _rowSpeedMultiplier: 3
   _climbSpeedMultiplier: 0.5
   _hoveringSpeedMultiplier: 0
   _rollTime: 0.1
+  _pushSpeed: 0
+  _pushTime: 0
+--- !u!114 &4227109226498632798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917657017319775213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45425f21bb63419c885cd4497465a7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _firstWeapon: {fileID: 0}
+  _secondWeapon: {fileID: 0}
+--- !u!114 &3996715834331739530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917657017319775213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c41a8e4604d43746baa3ce8696d5f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementController: {fileID: 6676185524730419155}
+  _trapDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _enemyDamageEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6580224133196047551}
+        m_TargetAssemblyTypeName: HealthController, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _fallFromTheEdgeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6676185524730419155}
+        m_TargetAssemblyTypeName: MovementController, Assembly-CSharp
+        m_MethodName: FallFromEdge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6580224133196047551}
+        m_TargetAssemblyTypeName: HealthController, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
