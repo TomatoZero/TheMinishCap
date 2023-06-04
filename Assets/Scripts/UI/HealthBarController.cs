@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Exception = System.Exception;
 
 public class HealthBarController : MonoBehaviour
 {
@@ -47,19 +48,24 @@ public class HealthBarController : MonoBehaviour
 
     private void ReduceHp()
     {
+        var startId = _currentHeartId;
+        
         if (_currentHeartId < 0 || _currentHeartId > _hearts.Count - 1)
         {
-            Debug.Log($"Current id {_currentHeartId}");
+            // Debug.Log($"Current id {_currentHeartId}");
             return;
         }
         
         if (_hearts[_currentHeartId].IsEmpty)
         {
+            if (_hearts[_currentHeartId].IsFull)
+                throw new Exception($"Hearts ui isFull and IsEmpty is true");
+            
             if (_currentHeartId - 1 > 0)
                 _currentHeartId--;
             else
             {
-                Debug.Log($"Over Damage? {_currentHeartId}");
+                // Debug.Log($"Over Damage? {_currentHeartId}");
                 return;
             }
         }
@@ -68,7 +74,7 @@ public class HealthBarController : MonoBehaviour
         if (_hearts[_currentHeartId].IsEmpty && _currentHeartId > 0)
         {
             _currentHeartId--;
-            Debug.Log($"Take damage decree {_currentHeartId}");
+            // Debug.Log($"Take damage decree {_currentHeartId} start id {startId}");
         }
     }
 
@@ -85,14 +91,14 @@ public class HealthBarController : MonoBehaviour
                 _currentHeartId++;
             else
             {
-                Debug.Log($"Over heal {_currentHeartId}");
+                // Debug.Log($"Over heal {_currentHeartId}");
                 return;
             }
         }
 
         if (_currentHeartId > _hearts.Count - 1)
         {
-            Debug.Log($"Current heart {_currentHeartId}");
+            // Debug.Log($"Current heart {_currentHeartId}");
             return;
         }
         
@@ -100,7 +106,7 @@ public class HealthBarController : MonoBehaviour
         if (_hearts[_currentHeartId].IsFull && _currentHeartId < _hearts.Count - 1)
         {
             _currentHeartId++;
-            Debug.Log($"Heal increase {_currentHeartId}");
+            // Debug.Log($"Heal increase {_currentHeartId}");
         }
         
     }

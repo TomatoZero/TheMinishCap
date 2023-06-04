@@ -46,10 +46,8 @@ public class HeartUiController : MonoBehaviour
             IsEmpty = false;
             IsFull = false;
         }
-        else
-        {
-            Debug.Log("Wrong heart selected. Take damage");
-        }
+        else throw new Exception("Wrong heart selected. Take damage");
+        
     }
 
     public void Heal()
@@ -69,22 +67,25 @@ public class HeartUiController : MonoBehaviour
             IsFull = false;
             IsEmpty = false;
         }
-        else
-        {
-            Debug.Log("Wrong heart selected. Heal");
-        }
+        else throw new Exception("Wrong heart selected. Heal");
     }
 
     public void SetFullHp()
     {
         _currentHeartId = 0;
         _image.sprite = _hearts[0];
+        
+        IsFull = true;
+        IsEmpty = false;
     }
 
     public void SetZeroHp()
     {
         _currentHeartId = _hearts.Count - 1;
         _image.sprite = _hearts[^1];
+        
+        IsFull = false;
+        IsEmpty = true;
     }
     
     
