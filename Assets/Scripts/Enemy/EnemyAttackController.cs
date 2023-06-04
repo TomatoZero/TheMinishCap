@@ -11,7 +11,6 @@ public class EnemyAttackController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player hit");
             _attackEvent.Invoke();
 
             if (other.TryGetComponent(out DamageController player))

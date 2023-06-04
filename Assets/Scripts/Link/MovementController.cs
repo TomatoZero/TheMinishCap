@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MovementController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _climbSpeedMultiplier;
     [SerializeField] private float _hoveringSpeedMultiplier;
     [SerializeField] private float _rollTime = 0.5f;
-    [Space] [SerializeField] private float _pushSpeed;
+    [FormerlySerializedAs("_pushSpeed")] [Space] [SerializeField] private float _pushSpeedMultiplier;
     [SerializeField] private float _pushTime;
 
     private Vector2 _moveDirection;
@@ -20,7 +21,40 @@ public class MovementController : MonoBehaviour
 
     private State _currentState = State.Ground;
 
-    public State CurrentState => _currentState;
+    public State CurrentState
+    {
+        get => _currentState;
+        private set
+        {
+            _currentState = value;
+
+            switch (value)
+            {
+                case State.HoldWeapon:
+                    _currentSpeed = _moveSpeed * _weaponHoldMultiplier;
+                    break;
+                case State.Ground:
+                    _currentSpeed = _moveSpeed;
+                    break;
+                case State.Ladder:
+                    _currentSpeed = _moveSpeed * _climbSpeedMultiplier;
+                    break;
+                case State.Roll:
+                    _currentSpeed = _moveSpeed * _rowSpeedMultiplier;
+                    break;
+                case State.AfterDeath:
+                    _currentSpeed = _moveSpeed;
+                    break;
+                case State.MeleeAttack:
+                    _currentSpeed = _moveSpeed;
+                    break;
+                case State.PushAway:
+                case State.PushAwayPrepare:
+                    _currentSpeed = _moveSpeed * _pushSpeedMultiplier;
+                    break;
+            }
+        }
+    }
 
     public delegate void RotateEventHandler(Vector2 direction);
 
@@ -32,7 +66,7 @@ public class MovementController : MonoBehaviour
         get => _moveDirection;
         set
         {
-            if (_currentState == State.Roll || _currentState == State.PushAway) return;
+            if (CurrentState == State.Roll || CurrentState == State.PushAway) return;
 
             var tempDirection = value.normalized;
 
@@ -47,9 +81,9 @@ public class MovementController : MonoBehaviour
             
             _moveDirection = tempDirection.normalized;
 
-            if (_currentState == State.PushAwayPrepare)
+            if (CurrentState == State.PushAwayPrepare)
             {
-                _currentState = State.PushAway;
+                CurrentState = State.PushAway;
                 return;
             }
             
@@ -69,15 +103,7 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_currentState != State.AfterDeath && _currentState != State.MeleeAttack)
-        {
-            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
-        }
-
-        if (_currentState == State.PushAway || _currentState == State.PushAwayPrepare)
-        {
-            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
-        }
+        _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
     }
 
     public void OnEnable()
@@ -96,25 +122,21 @@ public class MovementController : MonoBehaviour
 
     public void Roll()
     {
-        if (_currentState != State.Ladder & _currentState != State.Roll)
+        if (CurrentState != State.Ladder & CurrentState != State.Roll)
         {
-            _currentSpeed = _moveSpeed * _rowSpeedMultiplier;
-
             StartCoroutine(StopRolling());
-            _currentState = State.Roll;
+            CurrentState = State.Roll;
         }
     }
 
     public void ClimbingStart()
     {
-        _currentSpeed = _moveSpeed * _climbSpeedMultiplier;
-        _currentState = State.Ladder;
+        CurrentState = State.Ladder;
     }
 
     public void ClimbingEnd()
     {
-        _currentSpeed = _moveSpeed;
-        _currentState = State.Ground;
+        CurrentState = State.Ground;
     }
 
     public void JumpFromEdge()
@@ -123,7 +145,7 @@ public class MovementController : MonoBehaviour
 
     public void FallFromEdge()
     {
-        _currentState = State.AfterDeath;
+        CurrentState = State.AfterDeath;
         var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
         _rigidbody.position += reverseDirection * 0.5f;
         MoveDirection = Vector2.zero;
@@ -132,53 +154,42 @@ public class MovementController : MonoBehaviour
 
     private void UseWeapon(State state)
     {
-        _currentState = State.MeleeAttack;
+        CurrentState = State.MeleeAttack;
     }
 
     private void WeaponEventHold()
     {
-        _currentState = State.HoldWeapon;
+        CurrentState = State.HoldWeapon;
     }
 
     private void ReleaseWeapon()
     {
-        _currentState = State.Ground;
+        CurrentState = State.Ground;
     }
 
     public void PushAway(Vector2 direction)
     {
-        _currentState = State.PushAwayPrepare;
+        CurrentState = State.PushAwayPrepare;
         MoveDirection = direction;
         StartCoroutine(FinishPush());
     }
 
     private IEnumerator FinishPush()
     {
-        // var count = 4;
-        // var partPushTime = _pushTime / count;
-        //
-        // while (count <= 0)
-        // {
-        //     _currentSpeed -= 0.2f;
-        //     yield return new WaitForSeconds(partPushTime);
-        //     count--;
-        // }
-
         yield return new WaitForSeconds(_pushTime);
-        _currentState = State.Ground;
+        CurrentState = State.Ground;
     }
 
     private IEnumerator WaitAfterDeath()
     {
         yield return new WaitForSeconds(1);
-        _currentState = State.Ground;
+        CurrentState = State.Ground;
     }
 
     private IEnumerator StopRolling()
     {
         yield return new WaitForSeconds(_rollTime);
-        _currentSpeed = _moveSpeed;
-        _currentState = State.Ground;
+        CurrentState = State.Ground;
     }
 
     private void OnDrawGizmos()

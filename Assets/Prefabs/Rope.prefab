@@ -258,8 +258,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
-  m_LinearDrag: 5
+  m_Mass: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -333,18 +333,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-        m_MethodName: CreateInstance
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _spriteRenderer: {fileID: 5573194683194534353}
   _moveController: {fileID: 5573194683194534378}
 --- !u!114 &5573194683194534378
@@ -360,9 +348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 5573194683194534358}
-  _baseSpeed: 0
-  _pushSpeedMultiplier: 0
-  _runSpeedMultiplier: 0
+  _baseSpeed: 2
+  _pushSpeedMultiplier: 3
+  _runSpeedMultiplier: 4
   _pushTime: 0.3
   _eyesController: {fileID: 5573194682758671108}
   _changeDirectionEvent:

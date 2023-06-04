@@ -12,6 +12,7 @@ public class HealthController : MonoBehaviour
 
     private int _currentHp;
     private int _currentMaxHp;
+    private int _currentHeartPart;
 
     private void Awake()
     {

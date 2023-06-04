@@ -12,7 +12,6 @@ public class SnakeEyesController : EnemyEyesController
 
         if (Math.Abs(snakePos.x - enemyPosition.x) < 0.1 || Math.Abs(snakePos.y - enemyPosition.y) < 0.1)
         {
-            Debug.Log($"{enemyPosition}");
             _attackEvent.Invoke(enemyPosition);
         }
     }
