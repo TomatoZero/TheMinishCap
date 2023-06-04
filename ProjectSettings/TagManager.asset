@@ -8,6 +8,8 @@ TagManager:
   - Deep
   - Enemy
   - Wall
+  - Heal
+  - HeartContainer
   layers:
   - Default
   - TransparentFX

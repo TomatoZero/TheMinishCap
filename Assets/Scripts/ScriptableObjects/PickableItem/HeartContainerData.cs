@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "HeartContainer", menuName = "Items/HeartContainer")]
-public class HeartContainer : ItemData
+public class HeartContainerData : ItemData
 {
     [SerializeField] private int numbHeartbeat;
     

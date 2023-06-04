@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd569c677334d8a4f8a720f7a43c7bdc, type: 3}
   m_Name: Heart
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
-  _numbHealthRestore: 0
+  _name: Heart
+  _icon: {fileID: 21300000, guid: 6aca152e9ade22141b7f809e8b2170a1, type: 3}
+  _numbHealthRestore: 1

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd569c677334d8a4f8a720f7a43c7bdc, type: 3}
   m_Name: Croissant
   m_EditorClassIdentifier: 
-  _name: Pie
+  _name: croissant
   _icon: {fileID: 21300000, guid: 454d8edb4258d454eb9a788c8beed1cb, type: 3}
   _numbHealthRestore: 4

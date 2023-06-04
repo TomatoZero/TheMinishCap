@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eafd09102de55e428fa41a0536a3677, type: 3}
   m_Name: FullHeartContainer
   m_EditorClassIdentifier: 
-  _name: 
-  _icon: {fileID: 0}
-  numbHeartbeat: 0
+  _name: Heart container
+  _icon: {fileID: 21300000, guid: 90aad540779edf6448ab5198d53645fb, type: 3}
+  numbHeartbeat: 4

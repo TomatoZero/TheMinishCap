@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -6,19 +5,16 @@ public class Item : MonoBehaviour
     [SerializeField] private ItemData _data;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
+    public ItemData Data => _data;
+
     private void Awake()
     {
         _spriteRenderer.sprite = _data.Icon;
-
-        var x = _data as HealthData;
-        Debug.Log($"Test item {x.NumbHealthRestore}");
     }
 
-    protected void SetSprite(Sprite sprite)
+    public void PicUp()
     {
-        _spriteRenderer.sprite = sprite;
-
-        var x = _data as HealthData;
-        Debug.Log($"Test item {x.NumbHealthRestore}");
+        
     }
+    
 }

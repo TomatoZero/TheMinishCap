@@ -106,7 +106,6 @@ public class EnemyMoveController : MonoBehaviour
             (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Wall")) ||
             other.collider.CompareTag("Player"))
         {
-            Debug.Log($"Hit wall or enemy {other.collider.tag}");
             StopRun();
         }
     }

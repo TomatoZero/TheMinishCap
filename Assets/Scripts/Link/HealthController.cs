@@ -9,6 +9,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private PlayerHpEvent _playerTakeDamageEvent;
     [SerializeField] private PlayerHpEvent _playerHealEvent;
     [SerializeField] private PlayerHpEvent _playerSetHpHpEvent;
+    [SerializeField] private UnityEvent _increaseHp;
 
     private int _currentHp;
     private int _currentMaxHp;
@@ -19,13 +20,23 @@ public class HealthController : MonoBehaviour
         _playerSetHpHpEvent.Invoke(_baseHp);
         _currentHp = _baseHp;
         _currentMaxHp = _baseHp;
-
-        Debug.Log($"Current hp {_currentHp}");
     }
 
     public void TakeDamage()
     {
         TakeDamage(1);
+    }
+
+    public void HeartContainerPickUp(int count)
+    {
+        _currentHeartPart += count;
+
+        while(_currentHeartPart >= 4)
+        {
+            _currentHeartPart -= 4;
+            IncreaseHp();
+            Debug.Log($"current count: {_currentHeartPart} + {count}");
+        }
     }
     
     public void TakeDamage(int hp)
@@ -34,6 +45,8 @@ public class HealthController : MonoBehaviour
 
         _currentHp -= hp;
         
+        Debug.Log($"Current max hp {_currentMaxHp} _current hp {_currentHp}");
+
         if(_currentHp <= 0)
         {
             Debug.Log("Player die");
@@ -64,6 +77,8 @@ public class HealthController : MonoBehaviour
         _currentMaxHp += 4;
         _currentHp = _currentMaxHp;
         
-        _playerSetHpHpEvent.Invoke(_currentHp);
+        Debug.Log($"Current max hp {_currentMaxHp} _current hp {_currentHp}");
+        
+        _increaseHp.Invoke();
     }
 }
