@@ -33,25 +33,44 @@ public class MovementController : MonoBehaviour
         get => _moveDirection;
         set
         {
-            if (_currentState == State.Roll || _currentState == State.PushAway) return;
+            if (_currentState == State.Roll || _currentState == State.Push) return;
             
+<<<<<<< HEAD
+            var tempDirection = value;
+=======
             _moveDirection = value;
+                
+            Debug.Log($"{_currentState} {_moveDirection}");
+>>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
 
-            var xAbs = Math.Abs(_moveDirection.x);
-            var yAbs = Math.Abs(_moveDirection.y);
-                
-            if (xAbs > yAbs && xAbs != 1) _moveDirection.y = 0;
-            else if(yAbs > xAbs && yAbs != 1) _moveDirection.x = 0;
-                
+            var xAbs = Math.Abs(tempDirection.x);
+            var yAbs = Math.Abs(tempDirection.y);
+
+            if (xAbs > yAbs && xAbs != 1) tempDirection.y = 0;
+            else if(yAbs > xAbs && yAbs != 1) tempDirection.x = 0;
+            
+            tempDirection.Normalize();
+            
             if (_currentState == State.Ladder)
-                _moveDirection.x = 0;
+                tempDirection.x = 0;
 
-            if (_moveDirection != Vector2.zero)
+<<<<<<< HEAD
+            if (tempDirection != Vector2.zero)
             {
-                _directionView = _moveDirection;
-                Rotation?.Invoke(_directionView);
+                _directionView = tempDirection;
             }
 
+            if (tempDirection != Vector2.zero && _currentState == State.PushAway)
+                _directionView = new Vector2(-tempDirection.x, -tempDirection.y);
+            
+            Rotation?.Invoke(_directionView);
+            _moveDirection = tempDirection;
+=======
+            if (_moveDirection != Vector2.zero)
+                _directionView = _moveDirection;
+                
+            Rotation?.Invoke(_directionView);
+>>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
         }
     }
 
@@ -66,7 +85,7 @@ public class MovementController : MonoBehaviour
         {
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
         }
-        if (_currentState == State.PushAway)
+        if (_currentState == State.Push)
         {
             // Debug.Log("Fixed update");
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
@@ -120,7 +139,7 @@ public class MovementController : MonoBehaviour
         _currentState = State.AfterDeath;
         var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
         _rigidbody.position += reverseDirection * 0.5f;
-        _moveDirection = Vector2.zero;
+        MoveDirection = Vector2.zero;
         StartCoroutine(WaitAfterDeath());
     }
 
@@ -142,12 +161,22 @@ public class MovementController : MonoBehaviour
     public void PushAway(Vector2 direction)
     {
         MoveDirection = direction;
-        _currentState = State.PushAway;
+        _currentState = State.Push;
         StartCoroutine(FinishPush());
     }
 
     private IEnumerator FinishPush()
     {
+        // var count = 4;
+        // var partPushTime = _pushTime / count;
+        //
+        // while (count <= 0)
+        // {
+        //     _currentSpeed -= 0.2f;
+        //     yield return new WaitForSeconds(partPushTime);
+        //     count--;
+        // }
+
         yield return new WaitForSeconds(_pushTime);
         _currentState = State.Ground;
     }
@@ -164,10 +193,16 @@ public class MovementController : MonoBehaviour
         _currentSpeed = _moveSpeed;
         _currentState = State.Ground;
     }
+<<<<<<< HEAD
     
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(transform.position, _directionView * 1f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, MoveDirection * 2f);
     }
+=======
+
+>>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
 }

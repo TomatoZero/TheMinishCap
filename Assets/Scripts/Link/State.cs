@@ -6,5 +6,5 @@ public enum State
     AfterDeath,
     MeleeAttack,
     HoldWeapon,
-    PushAway
+    Push
 }

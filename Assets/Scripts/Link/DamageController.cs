@@ -26,16 +26,15 @@ public class DamageController : MonoBehaviour
         if (_movementController.CurrentState == State.AfterDeath) return;
         if (other.collider.CompareTag("Enemy"))
         {
-            var pushDirection = other.transform.position - transform.position;
+            var pushDirection = new Vector2(-_movementController.MoveDirection.x, -_movementController.MoveDirection.y);
             _enemyDamageEvent.Invoke(1);
-            _movementController.PushAway(new Vector2(-pushDirection.x, -pushDirection.y).normalized);
+            _movementController.PushAway(pushDirection);
         }
     }
 
     public void EnemyDamage(int hp, Vector2 direction)
     {
-        var pushDirection = direction - (Vector2)transform.position;
-        _enemyDamageEvent.Invoke(1);
-        _movementController.PushAway(new Vector2(-pushDirection.x, -pushDirection.y).normalized);
+        _enemyDamageEvent.Invoke(hp);
+        _movementController.PushAway(direction);
     }
 }

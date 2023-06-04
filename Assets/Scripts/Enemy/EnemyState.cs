@@ -2,6 +2,6 @@ public enum EnemyState
 {
     StartMove,
     Move,
-    PushAway,
+    Push,
     Run
 }
