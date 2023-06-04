@@ -28,18 +28,12 @@ public abstract class EnemyEyesController : MonoBehaviour
 
         return availableDirection;
     }
-
-    // ReSharper disable Unity.PerformanceAnalysis
+    
     protected virtual bool CheckOneDirection(Vector2 direction)
     {
         var hasHit = Physics.BoxCast(transform.position, _collider.size / 2f,
             direction, out RaycastHit hitInfo, Quaternion.identity, 3f);
-
-        if (hasHit)
-        {   
-            Debug.Log($"{hitInfo.collider.tag}");
-        }
-        
+       
         return !hasHit;
     }
     

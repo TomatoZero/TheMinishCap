@@ -31,12 +31,7 @@ public class MovementController : MonoBehaviour
     {
         get
         {
-            var xAbs = Math.Abs(_moveDirection.x);
-            var yAbs = Math.Abs(_moveDirection.y);
-            
-            if(Math.Abs(xAbs - 1) > 0.9 && Math.Abs(yAbs - 1) > 0.9)
-                if (xAbs > yAbs) _moveDirection.y = 0;
-                else if (yAbs > xAbs) _moveDirection.x = 0;
+
 
             return _moveDirection;
         }
@@ -44,14 +39,23 @@ public class MovementController : MonoBehaviour
         {
             if (_currentState == State.Roll || _currentState == State.PushAway) return;
 
-            _moveDirection = value;
+            var tempDirection = value.normalized;
 
+            var xTempAbs = Math.Abs(tempDirection.x);
+            var yTempAbs = Math.Abs(tempDirection.y);
             
-            
-            if (_moveDirection != Vector2.zero)
+            if(Math.Abs(xTempAbs - yTempAbs) < 0.1)
             {
-                _directionView = _moveDirection;
+                if (Math.Abs(xTempAbs - 0.7) < 0.1) tempDirection.y = 0;
+                else if (Math.Abs(yTempAbs - 0.7) < 0.1) tempDirection.x = 0;
             }
+            
+            if (tempDirection != Vector2.zero)
+            {
+                _directionView = tempDirection;
+            }
+
+            _moveDirection = tempDirection.normalized;
             Rotation?.Invoke(_directionView);
         }
     }
@@ -65,13 +69,11 @@ public class MovementController : MonoBehaviour
     {
         if (_currentState != State.AfterDeath && _currentState != State.MeleeAttack)
         {
-            _rigidbody.MovePosition(_rigidbody.position +
-                                    MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
+            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
         }
 
         if (_currentState == State.PushAway)
         {
-            // Debug.Log("Fixed update");
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
         }
     }

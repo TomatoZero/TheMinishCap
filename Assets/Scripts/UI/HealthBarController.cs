@@ -24,7 +24,6 @@ public class HealthBarController : MonoBehaviour
     
     public void IncreaseHp()
     {
-        Debug.Log("11111111111111");
         foreach (var heart in _hearts) heart.SetFullHp();
 
         var newHeart =  Instantiate(_heartPrefab, this.transform);
