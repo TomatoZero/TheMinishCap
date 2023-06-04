@@ -12,15 +12,13 @@ public class EnemyMoveController : MonoBehaviour
     [SerializeField] private float _runSpeedMultiplier;
     [SerializeField] private float _pushTime;
     [SerializeField] private EnemyEyesController _eyesController;
-    [SerializeField] private SnakeAttackEvent _changeDirectionEvent;
     [SerializeField] private ChangeDirectionViewEvent _rotation;
 
-    public Vector2 MoveDirection
+    protected virtual Vector2 MoveDirection
     {
         get => _moveDirection;
-        private set
+        private protected set
         {
-            //---------------
             if (CurrentState == EnemyState.PushAway) return;
 
             var tempDirection = value.normalized;
@@ -56,10 +54,10 @@ public class EnemyMoveController : MonoBehaviour
     private EnemyState _currentState;
     private float _currentSpeed;
 
-    private EnemyState CurrentState
+    protected virtual EnemyState CurrentState
     {
         get => _currentState;
-        set
+        private protected set
         {
             _currentState = value;
             switch (value)
@@ -88,6 +86,8 @@ public class EnemyMoveController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log("Enemy test");
+        
         if (CurrentState == EnemyState.StartMove)
         {
             CurrentState = EnemyState.Move;
@@ -111,7 +111,7 @@ public class EnemyMoveController : MonoBehaviour
         }
     }
 
-    public void PushAway(Vector2 direction)
+    public virtual void PushAway(Vector2 direction)
     {
         MoveDirection = Vector2.zero;
         CurrentState = EnemyState.PushAwayPrepare;
@@ -119,7 +119,7 @@ public class EnemyMoveController : MonoBehaviour
         StartCoroutine(StopPushTimer());
     }
 
-    public void RunOnEnemyDirection(Vector2 enemyPosition)
+    public virtual void RunOnEnemyDirection(Vector2 enemyPosition)
     {
         _eyesController.SetLookingMode(false);
 
@@ -127,14 +127,14 @@ public class EnemyMoveController : MonoBehaviour
         CurrentState = EnemyState.Run;
     }
 
-    public void StopRun()
+    public virtual void StopRun()
     {
         MoveDirection = Vector2.zero;
         CurrentState = EnemyState.StartMove;
         StartCoroutine(AfterPlayerHitAction());
     }
 
-    public void PlayerHit()
+    public virtual void PlayerHit()
     {
         MoveDirection = Vector2.zero;
         CurrentState = EnemyState.StartMove;

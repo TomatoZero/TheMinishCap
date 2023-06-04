@@ -25,7 +25,7 @@ public class EnemyAttackController : MonoBehaviour
         }
     }
 
-    public void ChangeWeaponDirection(Vector2 direction)
+    public virtual void ChangeWeaponDirection(Vector2 direction)
     {
         var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         targetAngle += 180;

@@ -6,7 +6,6 @@ public class EnemyHealthController : MonoBehaviour
 {
     [SerializeField] private int _baseHp;
     [SerializeField] private UnityEvent _deathEvent;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private EnemyMoveController _moveController;
     
     private int _currentHp;
@@ -16,7 +15,7 @@ public class EnemyHealthController : MonoBehaviour
         _currentHp = _baseHp;
     }
 
-    public void TakeDamage(Vector2 direction)
+    public virtual void TakeDamage(Vector2 direction)
     {
         if (_currentHp <= 0)
             throw new Exception("Enemy hp is less then or equal to zero ");
@@ -26,7 +25,6 @@ public class EnemyHealthController : MonoBehaviour
         
         if (_currentHp == 0)
         {
-            // DeathEvent?.Invoke();
             _deathEvent.Invoke();
         }
     }
