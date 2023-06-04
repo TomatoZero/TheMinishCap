@@ -35,7 +35,7 @@ public class DamageController : MonoBehaviour
     public void EnemyDamage(int hp, Vector2 direction)
     {
         var pushDirection = direction - (Vector2)transform.position;
-        _enemyDamageEvent.Invoke(1);
+        _enemyDamageEvent.Invoke(hp);
         _movementController.PushAway(new Vector2(-pushDirection.x, -pushDirection.y).normalized);
     }
 }

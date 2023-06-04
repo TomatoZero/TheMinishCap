@@ -86,8 +86,6 @@ public class EnemyMoveController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Enemy test");
-        
         if (CurrentState == EnemyState.StartMove)
         {
             CurrentState = EnemyState.Move;

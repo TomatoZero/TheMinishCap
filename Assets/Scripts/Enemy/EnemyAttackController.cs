@@ -15,11 +15,11 @@ public class EnemyAttackController : MonoBehaviour
 
             if (other.TryGetComponent(out DamageController player))
             {
-                player.EnemyDamage(1, transform.position);
+                player.EnemyDamage(4, transform.position);
             }
             else
             {
-                throw new Exception("Object with player tag and without DamgeController");
+                throw new Exception("Object with player tag and without DamageController");
             }
 
         }
@@ -27,6 +27,8 @@ public class EnemyAttackController : MonoBehaviour
 
     public virtual void ChangeWeaponDirection(Vector2 direction)
     {
+        if(direction == Vector2.zero) return;
+       
         var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         targetAngle += 180;
         transform.rotation = Quaternion.Euler(0f, 0f, targetAngle);

@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
 
     public void PicUp()
     {
-        
+        Destroy(this);
     }
     
 }
