@@ -1,60 +1,60 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 using Random = System.Random;
 
 public class EnemyMoveController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
-
-    [FormerlySerializedAs("_moveSpeed")] [SerializeField]
-    private float _baseSpeed;
-
-    [FormerlySerializedAs("_pushSpeed")] [SerializeField]
-    private float _pushSpeedMultiplier;
-
-    [FormerlySerializedAs("_attackSpeedMultiplier")] [FormerlySerializedAs("_attackSpeed")] [SerializeField]
-    private float _runSpeedMultiplier;
-
+    [SerializeField] private float _baseSpeed;
+    [SerializeField] private float _pushSpeedMultiplier;
+    [SerializeField] private float _runSpeedMultiplier;
     [SerializeField] private float _pushTime;
     [SerializeField] private EnemyEyesController _eyesController;
     [SerializeField] private SnakeAttackEvent _changeDirectionEvent;
+    [SerializeField] private ChangeDirectionViewEvent _rotation;
 
     public Vector2 MoveDirection
     {
         get => _moveDirection;
         private set
         {
-            _moveDirection = value.normalized;
-
-            if (_moveDirection != Vector2.zero) _changeDirectionEvent.Invoke(_moveDirection);
-
             //---------------
-            //
-            // if (_currentState == EnemyState.PushAway) return;
-            //
-            // _moveDirection = value;
-            //
-            // var xAbs = Math.Abs(_moveDirection.x);
-            // var yAbs = Math.Abs(_moveDirection.y);
-            //     
-            // if (xAbs > yAbs && xAbs != 1) _moveDirection.y = 0;
-            // else if(yAbs > xAbs && yAbs != 1) _moveDirection.x = 0;
-            //     
-            // if (_moveDirection != Vector2.zero)
-            // {
-            //     if (_currentState == EnemyState.PushAway) return;
-            //         _directionView = _moveDirection;
-            //         Rotation?.Invoke(_directionView);
-            // }
+            if (CurrentState == EnemyState.PushAway) return;
+
+            var tempDirection = value.normalized;
+
+            var xTempAbs = Math.Abs(tempDirection.x);
+            var yTempAbs = Math.Abs(tempDirection.y);
+
+            if (Math.Abs(xTempAbs - yTempAbs) < 0.1)
+            {
+                if (Math.Abs(xTempAbs - 0.7) < 0.1) tempDirection.y = 0;
+                else if (Math.Abs(yTempAbs - 0.7) < 0.1) tempDirection.x = 0;
+            }
+
+            _moveDirection = tempDirection.normalized;
+
+            if (CurrentState == EnemyState.PushAwayPrepare)
+            {
+                CurrentState = EnemyState.PushAway;
+                return;
+            }
+
+            if (tempDirection != Vector2.zero)
+            {
+                _directionView = tempDirection;
+            }
+
+            _rotation.Invoke(_directionView);
         }
     }
-    
-    private EnemyState _currentState = EnemyState.StartMove;
-    private float _currentSpeed;
+
     private Vector2 _moveDirection;
+    private Vector2 _directionView;
+    private EnemyState _currentState;
+    private float _currentSpeed;
 
     private EnemyState CurrentState
     {
@@ -72,6 +72,7 @@ public class EnemyMoveController : MonoBehaviour
                     _currentSpeed = _baseSpeed * _runSpeedMultiplier;
                     break;
                 case EnemyState.PushAway:
+                case EnemyState.PushAwayPrepare:
                     _currentSpeed = _baseSpeed * _pushSpeedMultiplier;
                     break;
                 default:
@@ -82,27 +83,27 @@ public class EnemyMoveController : MonoBehaviour
 
     private void Awake()
     {
-        _currentSpeed = _baseSpeed;
+        CurrentState = EnemyState.StartMove;
     }
 
     private void FixedUpdate()
     {
-        if (CurrentState == EnemyState.Run || CurrentState == EnemyState.PushAway || CurrentState == EnemyState.Move)
-            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
-        else if (CurrentState == EnemyState.StartMove)
+        if (CurrentState == EnemyState.StartMove)
         {
             CurrentState = EnemyState.Move;
             var availableDirection = _eyesController.CheckAvailableDirection();
             var randomIndex = (new Random()).Next(0, availableDirection.Count);
             MoveDirection = availableDirection[randomIndex];
             StartCoroutine(ChangeMoveDirection());
+            return;
         }
+
+        _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if ((CurrentState == EnemyState.Run || CurrentState == EnemyState.Move ||
-             CurrentState == EnemyState.PushAway) &&
+        if ((CurrentState != EnemyState.StartMove) &&
             (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Wall")) ||
             other.collider.CompareTag("Player"))
         {
@@ -112,7 +113,8 @@ public class EnemyMoveController : MonoBehaviour
 
     public void PushAway(Vector2 direction)
     {
-        CurrentState = EnemyState.PushAway;
+        MoveDirection = Vector2.zero;
+        CurrentState = EnemyState.PushAwayPrepare;
         MoveDirection = direction;
         StartCoroutine(StopPushTimer());
     }
@@ -163,6 +165,8 @@ public class EnemyMoveController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, MoveDirection * 1f);
+        Gizmos.DrawRay(transform.position, _directionView * 1f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, MoveDirection * 2f);
     }
 }

@@ -52,6 +52,8 @@ public class MovementController : MonoBehaviour
                 case State.PushAwayPrepare:
                     _currentSpeed = _moveSpeed * _pushSpeedMultiplier;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(value), value, null);
             }
         }
     }
