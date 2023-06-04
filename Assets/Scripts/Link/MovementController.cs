@@ -35,23 +35,29 @@ public class MovementController : MonoBehaviour
         {
             if (_currentState == State.Roll || _currentState == State.PushAway) return;
             
-            _moveDirection = value;
+            var tempDirection = value;
 
-            var xAbs = Math.Abs(_moveDirection.x);
-            var yAbs = Math.Abs(_moveDirection.y);
-                
-            if (xAbs > yAbs && xAbs != 1) _moveDirection.y = 0;
-            else if(yAbs > xAbs && yAbs != 1) _moveDirection.x = 0;
-                
+            var xAbs = Math.Abs(tempDirection.x);
+            var yAbs = Math.Abs(tempDirection.y);
+
+            if (xAbs > yAbs && xAbs != 1) tempDirection.y = 0;
+            else if(yAbs > xAbs && yAbs != 1) tempDirection.x = 0;
+            
+            tempDirection.Normalize();
+            
             if (_currentState == State.Ladder)
-                _moveDirection.x = 0;
+                tempDirection.x = 0;
 
-            if (_moveDirection != Vector2.zero)
+            if (tempDirection != Vector2.zero)
             {
-                _directionView = _moveDirection;
-                Rotation?.Invoke(_directionView);
+                _directionView = tempDirection;
             }
 
+            if (tempDirection != Vector2.zero && _currentState == State.PushAway)
+                _directionView = new Vector2(-tempDirection.x, -tempDirection.y);
+            
+            Rotation?.Invoke(_directionView);
+            _moveDirection = tempDirection;
         }
     }
 
@@ -120,7 +126,7 @@ public class MovementController : MonoBehaviour
         _currentState = State.AfterDeath;
         var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
         _rigidbody.position += reverseDirection * 0.5f;
-        _moveDirection = Vector2.zero;
+        MoveDirection = Vector2.zero;
         StartCoroutine(WaitAfterDeath());
     }
 
@@ -148,6 +154,16 @@ public class MovementController : MonoBehaviour
 
     private IEnumerator FinishPush()
     {
+        // var count = 4;
+        // var partPushTime = _pushTime / count;
+        //
+        // while (count <= 0)
+        // {
+        //     _currentSpeed -= 0.2f;
+        //     yield return new WaitForSeconds(partPushTime);
+        //     count--;
+        // }
+
         yield return new WaitForSeconds(_pushTime);
         _currentState = State.Ground;
     }
@@ -169,5 +185,7 @@ public class MovementController : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(transform.position, _directionView * 1f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, MoveDirection * 2f);
     }
 }

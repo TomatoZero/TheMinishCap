@@ -47,6 +47,8 @@ public abstract class EnemyEyesController : MonoBehaviour
     
     private void OnDrawGizmosSelected()
     {
+        if(!_isLookForPlayer) return;
+        
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.up * 3f);
         Gizmos.DrawRay(transform.position, Vector2.down * 3f);
