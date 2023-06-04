@@ -2,120 +2,168 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 public class EnemyMoveController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _pushSpeed;
-    [SerializeField] private float _attackSpeed;
+
+    [FormerlySerializedAs("_moveSpeed")] [SerializeField]
+    private float _baseSpeed;
+
+    [FormerlySerializedAs("_pushSpeed")] [SerializeField]
+    private float _pushSpeedMultiplier;
+
+    [FormerlySerializedAs("_attackSpeedMultiplier")] [FormerlySerializedAs("_attackSpeed")] [SerializeField]
+    private float _runSpeedMultiplier;
+
     [SerializeField] private float _pushTime;
     [SerializeField] private EnemyEyesController _eyesController;
     [SerializeField] private SnakeAttackEvent _changeDirectionEvent;
 
     public Vector2 MoveDirection
     {
-        get => _movementDirection;
+        get => _moveDirection;
         private set
         {
-            _movementDirection = value.normalized;
-            
-            if(_movementDirection != Vector2.zero) _changeDirectionEvent.Invoke(_movementDirection);
+            _moveDirection = value.normalized;
+
+            if (_moveDirection != Vector2.zero) _changeDirectionEvent.Invoke(_moveDirection);
+
+            //---------------
+            //
+            // if (_currentState == EnemyState.PushAway) return;
+            //
+            // _moveDirection = value;
+            //
+            // var xAbs = Math.Abs(_moveDirection.x);
+            // var yAbs = Math.Abs(_moveDirection.y);
+            //     
+            // if (xAbs > yAbs && xAbs != 1) _moveDirection.y = 0;
+            // else if(yAbs > xAbs && yAbs != 1) _moveDirection.x = 0;
+            //     
+            // if (_moveDirection != Vector2.zero)
+            // {
+            //     if (_currentState == EnemyState.PushAway) return;
+            //         _directionView = _moveDirection;
+            //         Rotation?.Invoke(_directionView);
+            // }
         }
     }
     
-    private EnemyState _state = EnemyState.StartMove;
+    private EnemyState _currentState = EnemyState.StartMove;
     private float _currentSpeed;
-    private Vector2 _movementDirection;
-    
-    private Vector2[] directions = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+    private Vector2 _moveDirection;
+
+    private EnemyState CurrentState
+    {
+        get => _currentState;
+        set
+        {
+            _currentState = value;
+            switch (value)
+            {
+                case EnemyState.Move:
+                case EnemyState.StartMove:
+                    _currentSpeed = _baseSpeed;
+                    break;
+                case EnemyState.Run:
+                    _currentSpeed = _baseSpeed * _runSpeedMultiplier;
+                    break;
+                case EnemyState.PushAway:
+                    _currentSpeed = _baseSpeed * _pushSpeedMultiplier;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(value), value, null);
+            }
+        }
+    }
 
     private void Awake()
     {
-        _currentSpeed = _moveSpeed;
+        _currentSpeed = _baseSpeed;
     }
 
     private void FixedUpdate()
     {
-        if(_state == EnemyState.Run || _state == EnemyState.Push || _state == EnemyState.Move)
+        if (CurrentState == EnemyState.Run || CurrentState == EnemyState.PushAway || CurrentState == EnemyState.Move)
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * Time.fixedDeltaTime));
-        else if(_state == EnemyState.StartMove)
+        else if (CurrentState == EnemyState.StartMove)
         {
-            _state = EnemyState.Move;
-            var rnd = new Random();
-            int randomIndex = rnd.Next(0, directions.Length);
-            MoveDirection = directions[randomIndex];
+            CurrentState = EnemyState.Move;
+            var availableDirection = _eyesController.CheckAvailableDirection();
+            var randomIndex = (new Random()).Next(0, availableDirection.Count);
+            MoveDirection = availableDirection[randomIndex];
             StartCoroutine(ChangeMoveDirection());
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (_state == EnemyState.Run && (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Wall")))
+        if ((CurrentState == EnemyState.Run || CurrentState == EnemyState.Move ||
+             CurrentState == EnemyState.PushAway) &&
+            (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Wall")) ||
+            other.collider.CompareTag("Player"))
         {
+            Debug.Log($"Hit wall or enemy {other.collider.tag}");
             StopRun();
-        }   
+        }
     }
-    
+
     public void PushAway(Vector2 direction)
     {
-        _state = EnemyState.Push;
+        CurrentState = EnemyState.PushAway;
         MoveDirection = direction;
-        _currentSpeed = _pushSpeed;
         StartCoroutine(StopPushTimer());
     }
 
     public void RunOnEnemyDirection(Vector2 enemyPosition)
     {
-<<<<<<< HEAD
         _eyesController.SetLookingMode(false);
-=======
-        _eyesController.SetActive(false);
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
-        
+
         MoveDirection = enemyPosition - (Vector2)transform.position;
-        _currentSpeed = _attackSpeed;
-        _state = EnemyState.Run;
+        CurrentState = EnemyState.Run;
     }
 
     public void StopRun()
     {
-<<<<<<< HEAD
-        _eyesController.SetLookingMode(true);
-=======
-        _eyesController.SetActive(true);
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
-        _currentSpeed = _moveSpeed;
+        MoveDirection = Vector2.zero;
+        CurrentState = EnemyState.StartMove;
+        StartCoroutine(AfterPlayerHitAction());
     }
 
     public void PlayerHit()
     {
+        MoveDirection = Vector2.zero;
+        CurrentState = EnemyState.StartMove;
         StartCoroutine(AfterPlayerHitAction());
     }
 
     private IEnumerator StopPushTimer()
     {
         yield return new WaitForSeconds(_pushTime);
-        _state = EnemyState.Move;
+        CurrentState = EnemyState.Move;
     }
 
     private IEnumerator AfterPlayerHitAction()
     {
-        _state = EnemyState.Move;
-        _currentSpeed = _moveSpeed;
-        yield return new WaitForSeconds(0.5f);
-        
-<<<<<<< HEAD
+        yield return new WaitForSeconds(1f);
+
         _eyesController.SetLookingMode(true);
-=======
-        _eyesController.SetActive(true);
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
     }
 
     private IEnumerator ChangeMoveDirection()
     {
-        yield return new WaitForSeconds(2f);
-        _state = EnemyState.StartMove;
+        yield return new WaitForSeconds(10f);
+
+        if (CurrentState != EnemyState.Run)
+            CurrentState = EnemyState.StartMove;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, MoveDirection * 1f);
     }
 }

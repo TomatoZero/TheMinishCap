@@ -153,6 +153,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _movementController: {fileID: 5573194683194534378}
 --- !u!1 &5573194683194534376
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,9 +360,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 5573194683194534358}
-  _moveSpeed: 0
-  _pushSpeed: 0
-  _attackSpeed: 0
+  _baseSpeed: 0
+  _pushSpeedMultiplier: 0
+  _runSpeedMultiplier: 0
   _pushTime: 0.3
   _eyesController: {fileID: 5573194682758671108}
   _changeDirectionEvent:

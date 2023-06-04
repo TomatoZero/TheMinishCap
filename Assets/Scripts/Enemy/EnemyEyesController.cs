@@ -1,9 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EnemyEyesController : MonoBehaviour
 {
+    [SerializeField] private BoxCollider2D _collider;
+    private bool _isLookForPlayer = true;
+    
     private void OnTriggerStay2D(Collider2D other)
     {
+        if(!_isLookForPlayer) return;
         if (other.CompareTag("Player"))
         {
             ItIsVisible(other.transform.position);
@@ -12,9 +17,8 @@ public abstract class EnemyEyesController : MonoBehaviour
 
     protected abstract void ItIsVisible(Vector2 enemyPosition);
 
-    public void SetActive(bool activeMode)
+    public virtual List<Vector2> CheckAvailableDirection()
     {
-<<<<<<< HEAD
         var availableDirection = new List<Vector2>();
 
         if (CheckOneDirection(Vector2.up)) availableDirection.Add(Vector2.up);
@@ -53,8 +57,5 @@ public abstract class EnemyEyesController : MonoBehaviour
     public void SetLookingMode(bool activeMode)
     {
         _isLookForPlayer = activeMode;
-=======
-        gameObject.SetActive(activeMode);
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
     }
 }

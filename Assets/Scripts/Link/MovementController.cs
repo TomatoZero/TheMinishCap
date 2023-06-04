@@ -5,16 +5,14 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
-    [Space]
-    [SerializeField] private float _moveSpeed;
+    [Space] [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rowSpeedMultiplier = 5f;
     [SerializeField] private float _climbSpeedMultiplier;
     [SerializeField] private float _hoveringSpeedMultiplier;
     [SerializeField] private float _rollTime = 0.5f;
-    [Space]
-    [SerializeField] private float _pushSpeed;
+    [Space] [SerializeField] private float _pushSpeed;
     [SerializeField] private float _pushTime;
-    
+
     private Vector2 _moveDirection;
     private Vector2 _directionView;
     private float _currentSpeed;
@@ -23,54 +21,38 @@ public class MovementController : MonoBehaviour
     private State _currentState = State.Ground;
 
     public State CurrentState => _currentState;
-    
+
     public delegate void RotateEventHandler(Vector2 direction);
+
     public static event RotateEventHandler Rotation;
 
 
     public Vector2 MoveDirection
     {
-        get => _moveDirection;
+        get
+        {
+            var xAbs = Math.Abs(_moveDirection.x);
+            var yAbs = Math.Abs(_moveDirection.y);
+            
+            if(Math.Abs(xAbs - 1) > 0.9 && Math.Abs(yAbs - 1) > 0.9)
+                if (xAbs > yAbs) _moveDirection.y = 0;
+                else if (yAbs > xAbs) _moveDirection.x = 0;
+
+            return _moveDirection;
+        }
         set
         {
-            if (_currentState == State.Roll || _currentState == State.Push) return;
-            
-<<<<<<< HEAD
-            var tempDirection = value;
-=======
+            if (_currentState == State.Roll || _currentState == State.PushAway) return;
+
             _moveDirection = value;
-                
-            Debug.Log($"{_currentState} {_moveDirection}");
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
 
-            var xAbs = Math.Abs(tempDirection.x);
-            var yAbs = Math.Abs(tempDirection.y);
-
-            if (xAbs > yAbs && xAbs != 1) tempDirection.y = 0;
-            else if(yAbs > xAbs && yAbs != 1) tempDirection.x = 0;
             
-            tempDirection.Normalize();
             
-            if (_currentState == State.Ladder)
-                tempDirection.x = 0;
-
-<<<<<<< HEAD
-            if (tempDirection != Vector2.zero)
-            {
-                _directionView = tempDirection;
-            }
-
-            if (tempDirection != Vector2.zero && _currentState == State.PushAway)
-                _directionView = new Vector2(-tempDirection.x, -tempDirection.y);
-            
-            Rotation?.Invoke(_directionView);
-            _moveDirection = tempDirection;
-=======
             if (_moveDirection != Vector2.zero)
+            {
                 _directionView = _moveDirection;
-                
+            }
             Rotation?.Invoke(_directionView);
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
         }
     }
 
@@ -81,11 +63,13 @@ public class MovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_currentState != State.AfterDeath && _currentState != State.MeleeAttack)
+        if (_currentState != State.AfterDeath && _currentState != State.MeleeAttack)
         {
-            _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
+            _rigidbody.MovePosition(_rigidbody.position +
+                                    MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
         }
-        if (_currentState == State.Push)
+
+        if (_currentState == State.PushAway)
         {
             // Debug.Log("Fixed update");
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
@@ -102,13 +86,13 @@ public class MovementController : MonoBehaviour
     private void OnDisable()
     {
         WeaponsController.UseWeapon -= UseWeapon;
-        WeaponsController.ReleaseWeapon -= ReleaseWeapon;        
+        WeaponsController.ReleaseWeapon -= ReleaseWeapon;
         BaseWeapon.HoldWeaponEvent -= WeaponEventHold;
     }
 
     public void Roll()
     {
-        if(_currentState != State.Ladder & _currentState != State.Roll)
+        if (_currentState != State.Ladder & _currentState != State.Roll)
         {
             _currentSpeed = _moveSpeed * _rowSpeedMultiplier;
 
@@ -131,7 +115,6 @@ public class MovementController : MonoBehaviour
 
     public void JumpFromEdge()
     {
-        
     }
 
     public void FallFromEdge()
@@ -152,16 +135,16 @@ public class MovementController : MonoBehaviour
     {
         _currentState = State.HoldWeapon;
     }
-    
+
     private void ReleaseWeapon()
     {
         _currentState = State.Ground;
     }
-    
+
     public void PushAway(Vector2 direction)
     {
         MoveDirection = direction;
-        _currentState = State.Push;
+        _currentState = State.PushAway;
         StartCoroutine(FinishPush());
     }
 
@@ -186,15 +169,14 @@ public class MovementController : MonoBehaviour
         yield return new WaitForSeconds(1);
         _currentState = State.Ground;
     }
-    
+
     private IEnumerator StopRolling()
     {
         yield return new WaitForSeconds(_rollTime);
         _currentSpeed = _moveSpeed;
         _currentState = State.Ground;
     }
-<<<<<<< HEAD
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -202,7 +184,5 @@ public class MovementController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, MoveDirection * 2f);
     }
-=======
 
->>>>>>> parent of 4fecc1f (refactor(game logic): fix errors in the behavior of the enemy and the user when interacting with him)
 }
