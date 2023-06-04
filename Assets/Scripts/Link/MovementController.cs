@@ -29,12 +29,7 @@ public class MovementController : MonoBehaviour
 
     public Vector2 MoveDirection
     {
-        get
-        {
-
-
-            return _moveDirection;
-        }
+        get => _moveDirection;
         set
         {
             if (_currentState == State.Roll || _currentState == State.PushAway) return;
@@ -50,12 +45,19 @@ public class MovementController : MonoBehaviour
                 else if (Math.Abs(yTempAbs - 0.7) < 0.1) tempDirection.x = 0;
             }
             
+            _moveDirection = tempDirection.normalized;
+
+            if (_currentState == State.PushAwayPrepare)
+            {
+                _currentState = State.PushAway;
+                return;
+            }
+            
             if (tempDirection != Vector2.zero)
             {
                 _directionView = tempDirection;
             }
 
-            _moveDirection = tempDirection.normalized;
             Rotation?.Invoke(_directionView);
         }
     }
@@ -72,7 +74,7 @@ public class MovementController : MonoBehaviour
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_currentSpeed * _weaponHoldMultiplier * Time.fixedDeltaTime));
         }
 
-        if (_currentState == State.PushAway)
+        if (_currentState == State.PushAway || _currentState == State.PushAwayPrepare)
         {
             _rigidbody.MovePosition(_rigidbody.position + MoveDirection * (_pushSpeed * Time.fixedDeltaTime));
         }
@@ -145,8 +147,8 @@ public class MovementController : MonoBehaviour
 
     public void PushAway(Vector2 direction)
     {
+        _currentState = State.PushAwayPrepare;
         MoveDirection = direction;
-        _currentState = State.PushAway;
         StartCoroutine(FinishPush());
     }
 
