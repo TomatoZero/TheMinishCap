@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterController : MonoBehaviour
@@ -9,6 +10,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private HealthController _healthController;
     [SerializeField] private MovementController _movementController;
     [SerializeField] private WeaponsController _weaponsController;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+    
     private List<SpriteRenderer> _childSprite;
 
     public Vector2 MoveDirection
@@ -19,13 +22,17 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _childSprite = this.GetComponents<SpriteRenderer>().ToList();
+        _childSprite = GetComponentsInChildren<SpriteRenderer>().ToList();
     }
 
     public void ChangeLayer(string layer)
     {
+        _spriteRenderer.sortingLayerName = layer;
+        _weaponsController.ChangeSortingLayerInWeapon(layer);
+        
         foreach (var spriteRenderer in _childSprite)
         {
+            Debug.Log($"{spriteRenderer.GameObject().name}");
             spriteRenderer.sortingLayerName = layer;
         }
     }

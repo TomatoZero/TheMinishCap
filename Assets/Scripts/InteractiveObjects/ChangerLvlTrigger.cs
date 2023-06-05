@@ -1,22 +1,23 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ChangerLvlTrigger : MonoBehaviour
 {
-    [SerializeField] private string _lvl;
-    [SerializeField] private GameObject _lvlFirstColliders;
-    [SerializeField] private GameObject _lvlFirstObjectWithColliders;
-    [SerializeField] private GameObject _lvlSecondColliders;
-    [SerializeField] private GameObject _lvlSecondObjectWithColliders;
+    [SerializeField] private string _lvlFrom;
+    [SerializeField] private GameObject _lvlFromColliders;
+    [SerializeField] private GameObject _lvlFromObjectWithColliders;
+    [SerializeField] private GameObject _lvlToColliders;
+    [SerializeField] private GameObject _lvlToObjectWithColliders;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent(out CharacterController controller))
         {
-            controller.ChangeLayer(_lvl);
-            _lvlFirstColliders.SetActive(false);
-            SetActiveColliders(_lvlFirstObjectWithColliders, false);
-            _lvlSecondColliders.SetActive(true);
-            SetActiveColliders(_lvlSecondObjectWithColliders, true);
+            controller.ChangeLayer(_lvlFrom);
+            _lvlToColliders.SetActive(false);
+            SetActiveColliders(_lvlToObjectWithColliders, false);
+            _lvlFromColliders.SetActive(true);
+            SetActiveColliders(_lvlFromObjectWithColliders, true);
         }
     }
 

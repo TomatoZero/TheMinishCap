@@ -44,6 +44,11 @@ public class BaseWeapon : MonoBehaviour
         Direction = direction;
         IsHold = true;
     }
+
+    public void ChangeSortingLayer(string layer)
+    {
+        _image.sortingLayerName = layer;
+    }
     
     public virtual void UseWeapon()
     {

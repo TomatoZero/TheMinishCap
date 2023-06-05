@@ -3,7 +3,14 @@ using UnityEngine;
 public class WeaponsController : MonoBehaviour
 {
     [SerializeField] private BaseWeapon _firstWeapon;
-    [SerializeField] private BaseWeapon _secondWeapon;
+    // [SerializeField] private BaseWeapon _secondWeapon;
+    
+    public delegate void UseWeaponEventHandler(State state);
+    public delegate void ReleaseWeaponEventHandler();
+
+    public static event UseWeaponEventHandler UseWeapon;
+    public static event ReleaseWeaponEventHandler ReleaseWeapon;
+    
 
     public void UseFirstWeapon()
     {
@@ -16,13 +23,10 @@ public class WeaponsController : MonoBehaviour
         _firstWeapon.ReleaseWeapon();
         ReleaseWeapon?.Invoke();
     }
-    
-    public delegate void UseWeaponEventHandler(State state);
-    public delegate void ReleaseWeaponEventHandler();
 
-    public static event UseWeaponEventHandler UseWeapon;
-    public static event ReleaseWeaponEventHandler ReleaseWeapon;
+    public void ChangeSortingLayerInWeapon(string layer)
+    {
+        _firstWeapon.ChangeSortingLayer(layer);
+    }
     
-    // public delegate void HoldWeaponEventHandler();
-    // public static event HoldWeaponEventHandler HoldWeapon;
 }
