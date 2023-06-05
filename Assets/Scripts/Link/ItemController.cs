@@ -16,6 +16,7 @@ public class ItemController : MonoBehaviour
                 if (heal != null)
                 {
                     _healPickUp.Invoke(heal.NumbHealthRestore);
+                    item.PicUp();
                     Debug.Log($"Heal pick up {heal.NumbHealthRestore}");
                 }
                 else throw new Exception($"Heal Data null");
@@ -30,6 +31,7 @@ public class ItemController : MonoBehaviour
                 if (healContainer != null)
                 {
                     _heartContainerPickUp.Invoke(healContainer.NumbHeartbeat);
+                    item.PicUp();
                     Debug.Log($"Heart pick up {healContainer.NumbHeartbeat}");
                 }
                 else throw new Exception($"HealContainer Data null");

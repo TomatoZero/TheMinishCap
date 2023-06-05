@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 5573194683194534357}
   - component: {fileID: 5573194683194534378}
   - component: {fileID: 5573194683194534379}
+  - component: {fileID: 7460842975407747844}
   m_Layer: 0
   m_Name: Rope
   m_TagString: Enemy
@@ -305,6 +306,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a57c57ac3be124585db168a9bc9a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7460842975407747844}
+        m_TargetAssemblyTypeName: SpawnableObject, Assembly-CSharp
+        m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5573194683194534357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc1cbbb6412e494baf828a03b34684c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseHp: 855
+  _baseHp: 2
   _deathEvent:
     m_PersistentCalls:
       m_Calls:
@@ -333,7 +349,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _spriteRenderer: {fileID: 5573194683194534353}
   _moveController: {fileID: 5573194683194534378}
 --- !u!114 &5573194683194534378
 MonoBehaviour:
@@ -349,16 +364,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 5573194683194534358}
   _baseSpeed: 2
-  _pushSpeedMultiplier: 3
-  _runSpeedMultiplier: 4
+  _pushSpeedMultiplier: 4
+  _runSpeedMultiplier: 3
   _pushTime: 0.3
   _eyesController: {fileID: 5573194682758671108}
-  _changeDirectionEvent:
+  _rotation:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5573194682895648506}
-        m_TargetAssemblyTypeName: EnemyAttackController, Assembly-CSharp
-        m_MethodName: ChangeWeaponDirection
+      - m_Target: {fileID: 5573194683194534379}
+        m_TargetAssemblyTypeName: EnemyAnimationController, Assembly-CSharp
+        m_MethodName: SetSprite
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -368,9 +383,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5573194683194534379}
-        m_TargetAssemblyTypeName: EnemyAnimationController, Assembly-CSharp
-        m_MethodName: SetSprite
+      - m_Target: {fileID: 5573194682895648506}
+        m_TargetAssemblyTypeName: EnemyAttackController, Assembly-CSharp
+        m_MethodName: ChangeWeaponDirection
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -396,3 +411,18 @@ MonoBehaviour:
   _side: {fileID: 986411338, guid: d6b5fb259fa85e8459a88fa74192b3b4, type: 3}
   _front: {fileID: 223837470, guid: d6b5fb259fa85e8459a88fa74192b3b4, type: 3}
   _back: {fileID: -1859497907, guid: d6b5fb259fa85e8459a88fa74192b3b4, type: 3}
+--- !u!114 &7460842975407747844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5573194683194534376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3fc90425aedfd48b1c7a337151a946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _destroyEvent:
+    m_PersistentCalls:
+      m_Calls: []

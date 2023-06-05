@@ -44,8 +44,6 @@ public class HealthController : MonoBehaviour
         if (_currentHp <= 0) throw new Exception("Player hp less or equal zero");
 
         _currentHp -= hp;
-        
-        Debug.Log($"Current max hp {_currentMaxHp} _current hp {_currentHp}");
 
         if(_currentHp <= 0)
         {
