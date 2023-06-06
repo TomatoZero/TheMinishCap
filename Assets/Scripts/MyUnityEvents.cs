@@ -8,7 +8,7 @@ public class SnakeAttackEvent : UnityEvent<Vector2>
 }
 
 [Serializable]
-public class PlayerTakeDamageEvent : UnityEvent<int>
+public class PlayerTakeDamageEvent : UnityEvent<int, State, Vector2>
 {
 }
 
@@ -19,5 +19,10 @@ public class PlayerHpEvent : UnityEvent<int>
 
 [Serializable]
 public class ChangeDirectionViewEvent : UnityEvent<Vector2>
+{
+}
+
+[Serializable]
+public class FallEvent : UnityEvent<State>
 {
 }

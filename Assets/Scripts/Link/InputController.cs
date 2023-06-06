@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
     [SerializeField] private UiController _uiController;
     [SerializeField] private CharacterController _characterController;
-    // [SerializeField] private WeaponsController _weaponsController;
+    [Space]
+    [SerializeField] private UnityEvent _rollEvent;
+    [SerializeField] private UnityEvent _useFirstItemEvent;
+    [SerializeField] private UnityEvent _releaseFirstItemEvent;
+    
     
     private PlayerControll _playerControl;
     private PlayerControll.PlayerActions _playerAction;
@@ -82,7 +87,6 @@ public class InputController : MonoBehaviour
 
     private void DeviceChanged(InputDevice device, InputDeviceChange change)
     {
-        // Debug.Log($"device: {device} change: {change}");
     }
     
     private void MoveDirection(InputAction.CallbackContext context)
@@ -97,14 +101,12 @@ public class InputController : MonoBehaviour
 
     private void UseFirstWeapon(InputAction.CallbackContext context)
     {
-        // Debug.Log($"Input controller use weapon");
-        _characterController.UseFirstWeapon();
+        _useFirstItemEvent.Invoke();
     }
 
     private void ReleaseFirstWeapon(InputAction.CallbackContext context)
     {
-        // Debug.Log($"Input controller release weapon");
-        _characterController.ReleaseFirstWeapon();
+        _releaseFirstItemEvent.Invoke();
     }
 
     private void UseSecondWeapon(InputAction.CallbackContext context)
@@ -140,7 +142,7 @@ public class InputController : MonoBehaviour
 
     private void Roll(InputAction.CallbackContext context)
     {
-        _characterController.Roll();
+        _rollEvent.Invoke();
     }
 
     private void NextWindowOnPerformed(InputAction.CallbackContext obj)

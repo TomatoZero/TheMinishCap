@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class CharacterController : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private MovementController _movementController;
     [SerializeField] private WeaponsController _weaponsController;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+
+    [FormerlySerializedAs("_climbStart")] [SerializeField] private UnityEvent _climbStartEvent;
+    [FormerlySerializedAs("_climbEnd")] [SerializeField] private UnityEvent _climbEndEvent;
     
     private List<SpriteRenderer> _childSprite;
 
@@ -37,10 +42,7 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    public void Roll() => _movementController.Roll();
-    public void ClimbingStart() => _movementController.ClimbingStart();
-    public void ClimbingEnd() => _movementController.ClimbingEnd();
+    public void ClimbingStart() => _climbStartEvent.Invoke();
+    public void ClimbingEnd() => _climbEndEvent.Invoke();
 
-    public void UseFirstWeapon() => _weaponsController.UseFirstWeapon();
-    public void ReleaseFirstWeapon() => _weaponsController.ReleaseFirstWeapon();
 }

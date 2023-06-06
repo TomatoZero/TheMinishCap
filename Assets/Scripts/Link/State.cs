@@ -1,9 +1,11 @@
 public enum State
 {
     Ground,
-    Ladder,
+    Climb,
+    StopClimb,
     Roll,
-    AfterDeath,
+    FallFromEdge,
+    FallInWatter,
     MeleeAttack,
     HoldWeapon,
     PushAwayPrepare,

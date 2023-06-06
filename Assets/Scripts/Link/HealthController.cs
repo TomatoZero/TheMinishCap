@@ -27,16 +27,9 @@ public class HealthController : MonoBehaviour
         TakeDamage(1);
     }
 
-    public void HeartContainerPickUp(int count)
+    public void TakeDamageEventHandler(int hp, State state, Vector2 position)
     {
-        _currentHeartPart += count;
-
-        while(_currentHeartPart >= 4)
-        {
-            _currentHeartPart -= 4;
-            IncreaseHp();
-            Debug.Log($"current count: {_currentHeartPart} + {count}");
-        }
+        TakeDamage(hp);
     }
     
     public void TakeDamage(int hp)
@@ -52,6 +45,18 @@ public class HealthController : MonoBehaviour
         }
         
         _playerTakeDamageEvent.Invoke(hp);
+    }
+
+    public void HeartContainerPickUp(int count)
+    {
+        _currentHeartPart += count;
+
+        while(_currentHeartPart >= 4)
+        {
+            _currentHeartPart -= 4;
+            IncreaseHp();
+            Debug.Log($"current count: {_currentHeartPart} + {count}");
+        }
     }
 
     public void Heal(int hp)

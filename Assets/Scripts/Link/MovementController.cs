@@ -6,21 +6,26 @@ using UnityEngine.Serialization;
 public class MovementController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
-    [Space] [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _rowSpeedMultiplier = 5f;
+    [Space] 
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _rollSpeedMultiplier = 5f;
     [SerializeField] private float _climbSpeedMultiplier;
     [SerializeField] private float _hoveringSpeedMultiplier;
+    [SerializeField] private float _pushSpeedMultiplier;
+    [Space]
     [SerializeField] private float _rollTime = 0.5f;
-    [FormerlySerializedAs("_pushSpeed")] [Space] [SerializeField] private float _pushSpeedMultiplier;
     [SerializeField] private float _pushTime;
-
+    [SerializeField] private float _fallTime = 0.5f;
+    
+    public delegate void RotateEventHandler(Vector2 direction);
+    public static event RotateEventHandler Rotation;
+    
     private Vector2 _moveDirection;
     private Vector2 _directionView;
     private float _currentSpeed;
     private float _weaponHoldMultiplier = 1;
-
     private State _currentState = State.Ground;
-
+    
     public State CurrentState
     {
         get => _currentState;
@@ -36,20 +41,27 @@ public class MovementController : MonoBehaviour
                 case State.Ground:
                     _currentSpeed = _moveSpeed;
                     break;
-                case State.Ladder:
+                case State.Climb:
                     _currentSpeed = _moveSpeed * _climbSpeedMultiplier;
                     break;
-                case State.Roll:
-                    _currentSpeed = _moveSpeed * _rowSpeedMultiplier;
+                case State.StopClimb:
+                    _currentSpeed = _moveSpeed * 0.1f;
                     break;
-                case State.AfterDeath:
-                    _currentSpeed = _moveSpeed;
+                case State.Roll:
+                    _currentSpeed = _moveSpeed * _rollSpeedMultiplier;
+                    break;
+                case State.FallFromEdge:
+                case State.FallInWatter:
+                    _currentSpeed = 0;
                     break;
                 case State.MeleeAttack:
-                    _currentSpeed = _moveSpeed;
+                    _currentSpeed = 0;
+                    break;
+                case State.PushAwayPrepare:
+                    StartCoroutine(FinishPush());
+                    _currentSpeed = _moveSpeed * _pushSpeedMultiplier;
                     break;
                 case State.PushAway:
-                case State.PushAwayPrepare:
                     _currentSpeed = _moveSpeed * _pushSpeedMultiplier;
                     break;
                 default:
@@ -57,18 +69,14 @@ public class MovementController : MonoBehaviour
             }
         }
     }
-
-    public delegate void RotateEventHandler(Vector2 direction);
-
-    public static event RotateEventHandler Rotation;
-
-
+    
     public Vector2 MoveDirection
     {
         get => _moveDirection;
         set
         {
-            if (CurrentState == State.Roll || CurrentState == State.PushAway) return;
+            if (CurrentState == State.Roll || CurrentState == State.PushAway || 
+                CurrentState == State.StopClimb) return;
 
             var tempDirection = value.normalized;
 
@@ -89,6 +97,8 @@ public class MovementController : MonoBehaviour
                 return;
             }
             
+            if(CurrentState == State.HoldWeapon) return;
+            
             if (tempDirection != Vector2.zero)
             {
                 _directionView = tempDirection;
@@ -97,6 +107,10 @@ public class MovementController : MonoBehaviour
             Rotation?.Invoke(_directionView);
         }
     }
+
+    public Vector2 DirectionView => _directionView;
+    public float CurrentSpeed => _currentSpeed;
+    public float RollTime => _rollTime;
 
     private void Awake()
     {
@@ -110,51 +124,67 @@ public class MovementController : MonoBehaviour
 
     public void OnEnable()
     {
-        WeaponsController.UseWeapon += UseWeapon;
-        WeaponsController.ReleaseWeapon += ReleaseWeapon;
         BaseWeapon.HoldWeaponEvent += WeaponEventHold;
     }
 
     private void OnDisable()
     {
-        WeaponsController.UseWeapon -= UseWeapon;
-        WeaponsController.ReleaseWeapon -= ReleaseWeapon;
         BaseWeapon.HoldWeaponEvent -= WeaponEventHold;
     }
-
-    public void Roll()
+    
+    private void OnDrawGizmos()
     {
-        if (CurrentState != State.Ladder & CurrentState != State.Roll)
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, _directionView * 1f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, MoveDirection * 2f);
+    }
+
+    public void RollEventHandler()
+    {
+        if (CurrentState != State.Climb & CurrentState != State.Roll)
         {
             StartCoroutine(StopRolling());
             CurrentState = State.Roll;
         }
     }
 
-    public void ClimbingStart()
+    public void ClimbingStartEventHandler()
     {
-        CurrentState = State.Ladder;
+        MoveDirection = Vector2.up;
+        CurrentState = State.StopClimb;
+        StartCoroutine(MoveWhileClimb());
     }
 
-    public void ClimbingEnd()
+    public void ClimbingEndEventHandler()
     {
+        MoveDirection = Vector2.down;
+        CurrentState = State.StopClimb;
+        StartCoroutine(MoveWhileClimb());
+        
         CurrentState = State.Ground;
     }
 
+    private IEnumerator MoveWhileClimb()
+    {
+        yield return new WaitForSeconds(0.7f);
+        CurrentState = State.Climb;
+    }
+    
     public void JumpFromEdge()
     {
     }
 
-    public void FallFromEdge()
+    public void FallFromEdge(State state)
     {
-        CurrentState = State.AfterDeath;
+        CurrentState = state;
         var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
         _rigidbody.position += reverseDirection * 0.5f;
         MoveDirection = Vector2.zero;
-        StartCoroutine(WaitAfterDeath());
+        StartCoroutine(WaitAfterFall());
     }
 
-    private void UseWeapon(State state)
+    public void UseWeaponEventHandler()
     {
         CurrentState = State.MeleeAttack;
     }
@@ -164,16 +194,27 @@ public class MovementController : MonoBehaviour
         CurrentState = State.HoldWeapon;
     }
 
-    private void ReleaseWeapon()
+    public void ReleaseWeaponEventHandler()
     {
         CurrentState = State.Ground;
     }
 
-    public void PushAway(Vector2 direction)
+    public void TakeDamageEventHandler(int hp, State state, Vector2 position)
     {
-        CurrentState = State.PushAwayPrepare;
-        MoveDirection = direction;
-        StartCoroutine(FinishPush());
+        CurrentState = state;
+
+        switch (state)
+        {
+            case State.PushAwayPrepare:
+                MoveDirection = new Vector2(-position.x, -position.y);
+                StartCoroutine(FinishPush());
+                break;
+            case State.FallInWatter:
+            case State.FallFromEdge:
+                _rigidbody.position = position;
+                StartCoroutine(WaitAfterFall());
+                break;
+        }
     }
 
     private IEnumerator FinishPush()
@@ -182,9 +223,13 @@ public class MovementController : MonoBehaviour
         CurrentState = State.Ground;
     }
 
-    private IEnumerator WaitAfterDeath()
+    private IEnumerator WaitAfterFall()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(_fallTime);
+        
+        var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
+        _rigidbody.position += reverseDirection * 1.5f;
+        
         CurrentState = State.Ground;
     }
 
@@ -193,13 +238,4 @@ public class MovementController : MonoBehaviour
         yield return new WaitForSeconds(_rollTime);
         CurrentState = State.Ground;
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position, _directionView * 1f);
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, MoveDirection * 2f);
-    }
-
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5573194682758671110}
   - component: {fileID: 5573194682758671111}
   - component: {fileID: 5573194682758671108}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5573194682895648484}
   - component: {fileID: 5573194682895648485}
   - component: {fileID: 5573194682895648506}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 5573194683194534378}
   - component: {fileID: 5573194683194534379}
   - component: {fileID: 7460842975407747844}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rope
   m_TagString: Enemy
   m_Icon: {fileID: 0}
