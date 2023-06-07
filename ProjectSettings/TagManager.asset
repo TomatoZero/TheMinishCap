@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Heal
   - HeartContainer
+  - EnemyZone
   layers:
   - Default
   - TransparentFX

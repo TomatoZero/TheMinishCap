@@ -14,18 +14,13 @@ public class AnimationController : MonoBehaviour
         _animator.SetFloat("Vertical", _movementController.DirectionView.y);
         _animator.SetFloat("CurrentSpeed",
             _movementController.CurrentSpeed * _movementController.MoveDirection.sqrMagnitude);
-
-        // Debug.Log($"{_movementController.CurrentSpeed * _movementController.MoveDirection.sqrMagnitude}");
-        
+  
         switch (_movementController.CurrentState)
         {
             case State.Ground:
                 if (_prevState == State.FallInWatter) _animator.SetBool("Drowning", false);
                 else if (_prevState == State.FallFromEdge) _animator.SetBool("Fall", false);
                 else if(_prevState == State.Climb) _animator.SetBool("Climb", false);
-                break;
-            case State.Climb:
-                // _animator.SetBool("Climb", true);
                 break;
         }
 
@@ -51,13 +46,22 @@ public class AnimationController : MonoBehaviour
 
     public void ClimbStartEventHandler()
     {
-        _animator.SetBool("Climb", true);
-        Debug.Log($"Anmator climb {_animator.GetBool("Climb")}");
+        var isStart = _prevState != State.Climb;
+        _animator.SetBool("Climb", isStart);
     }
     
     public void ClimbEndEventHandler()
     {
         _animator.SetBool("Climb", false);
-        Debug.Log($"Anmator climb {_animator.GetBool("Climb")}");
+    }
+
+    public void UseWeaponEventHandler()
+    {
+        _animator.SetBool("SwordAttack", true);
+    }
+
+    public void ReleaseWeaponEventHandler()
+    {
+        _animator.SetBool("SwordAttack", false);
     }
 }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -14,9 +12,11 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private WeaponsController _weaponsController;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    [FormerlySerializedAs("_climbStart")] [SerializeField] private UnityEvent _climbStartEvent;
-    [FormerlySerializedAs("_climbEnd")] [SerializeField] private UnityEvent _climbEndEvent;
-    
+    [SerializeField] private UnityEvent _climbEvent;
+
+    [FormerlySerializedAs("_climbEnd")] [SerializeField]
+    private UnityEvent _climbEndEvent;
+
     private List<SpriteRenderer> _childSprite;
 
     public Vector2 MoveDirection
@@ -34,15 +34,13 @@ public class CharacterController : MonoBehaviour
     {
         _spriteRenderer.sortingLayerName = layer;
         _weaponsController.ChangeSortingLayerInWeapon(layer);
-        
+
         foreach (var spriteRenderer in _childSprite)
         {
-            Debug.Log($"{spriteRenderer.GameObject().name}");
             spriteRenderer.sortingLayerName = layer;
         }
     }
 
-    public void ClimbingStart() => _climbStartEvent.Invoke();
+    public void ClimbingStart() => _climbEvent.Invoke();
     public void ClimbingEnd() => _climbEndEvent.Invoke();
-
 }

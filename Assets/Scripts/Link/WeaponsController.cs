@@ -6,12 +6,12 @@ public class WeaponsController : MonoBehaviour
     // [SerializeField] private BaseWeapon _secondWeapon;
     
 
-    public void UseFirstWeapon()
+    public void UseFirstWeaponEventHandler()
     {
         _firstWeapon.UseWeapon();
     }
     
-    public void ReleaseFirstWeapon()
+    public void ReleaseFirstWeaponEventHandler()
     {
         _firstWeapon.ReleaseWeapon();
     }

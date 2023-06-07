@@ -26,3 +26,8 @@ public class ChangeDirectionViewEvent : UnityEvent<Vector2>
 public class FallEvent : UnityEvent<State>
 {
 }
+
+[Serializable]
+public class ClimbEvent : UnityEvent<bool>
+{
+}

@@ -6,7 +6,7 @@ public class ClimbableObject : MonoBehaviour
     {
         if (other.TryGetComponent(out CharacterController controller))
         {
-            controller.ClimbingStart();
+            // controller.ClimbingStart();
             // controller.MoveTo(this.transform.position.x);
         }
     }
@@ -15,7 +15,7 @@ public class ClimbableObject : MonoBehaviour
     {
         if (other.TryGetComponent(out CharacterController controller))
         {
-            controller.ClimbingEnd();
+            // controller.ClimbingEnd();
         }
     }
 }

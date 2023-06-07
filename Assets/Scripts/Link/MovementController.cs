@@ -10,7 +10,6 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rollSpeedMultiplier = 5f;
     [SerializeField] private float _climbSpeedMultiplier;
-    [SerializeField] private float _hoveringSpeedMultiplier;
     [SerializeField] private float _pushSpeedMultiplier;
     [Space]
     [SerializeField] private float _rollTime = 0.5f;
@@ -75,6 +74,7 @@ public class MovementController : MonoBehaviour
         get => _moveDirection;
         set
         {
+            
             if (CurrentState == State.Roll || CurrentState == State.PushAway || 
                 CurrentState == State.StopClimb) return;
 
@@ -149,26 +149,25 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    public void ClimbingStartEventHandler()
+    public void ClimbingEventHandler()
     {
-        MoveDirection = Vector2.up;
+        var isStart = CurrentState != State.Climb;
+        Debug.Log($"isStart: {isStart}");
         CurrentState = State.StopClimb;
-        StartCoroutine(MoveWhileClimb());
+        StartCoroutine(MoveWhileClimb(isStart));
     }
 
     public void ClimbingEndEventHandler()
     {
-        MoveDirection = Vector2.down;
         CurrentState = State.StopClimb;
-        StartCoroutine(MoveWhileClimb());
-        
-        CurrentState = State.Ground;
+        StartCoroutine(MoveWhileClimb(true));
     }
 
-    private IEnumerator MoveWhileClimb()
+    private IEnumerator MoveWhileClimb(bool isStart)
     {
         yield return new WaitForSeconds(0.7f);
-        CurrentState = State.Climb;
+        if (!isStart) CurrentState = State.Ground;
+        else CurrentState = State.Climb;
     }
     
     public void JumpFromEdge()
@@ -177,11 +176,11 @@ public class MovementController : MonoBehaviour
 
     public void FallFromEdge(State state)
     {
-        CurrentState = state;
-        var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
-        _rigidbody.position += reverseDirection * 0.5f;
-        MoveDirection = Vector2.zero;
-        StartCoroutine(WaitAfterFall());
+        // CurrentState = state;
+        // var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
+        // _rigidbody.position += reverseDirection * 0.5f;
+        // MoveDirection = Vector2.zero;
+        // StartCoroutine(WaitAfterFall());
     }
 
     public void UseWeaponEventHandler()
@@ -191,7 +190,8 @@ public class MovementController : MonoBehaviour
 
     private void WeaponEventHold()
     {
-        CurrentState = State.HoldWeapon;
+        if(CurrentState == State.MeleeAttack)
+            CurrentState = State.HoldWeapon;
     }
 
     public void ReleaseWeaponEventHandler()
@@ -201,6 +201,8 @@ public class MovementController : MonoBehaviour
 
     public void TakeDamageEventHandler(int hp, State state, Vector2 position)
     {
+        if(CurrentState == State.FallFromEdge || CurrentState == State.FallInWatter) return;
+        
         CurrentState = state;
 
         switch (state)
@@ -211,8 +213,13 @@ public class MovementController : MonoBehaviour
                 break;
             case State.FallInWatter:
             case State.FallFromEdge:
-                _rigidbody.position = position;
-                StartCoroutine(WaitAfterFall());
+                
+                Debug.Log($"MOveDirection {_moveDirection}");
+
+                var direction = (_rigidbody.position - position);
+
+                _rigidbody.position = _rigidbody.position + MoveDirection * 1.25f;
+                StartCoroutine(WaitAfterFall(new Vector2(-_moveDirection.x, -_moveDirection.y)));
                 break;
         }
     }
@@ -223,12 +230,11 @@ public class MovementController : MonoBehaviour
         CurrentState = State.Ground;
     }
 
-    private IEnumerator WaitAfterFall()
+    private IEnumerator WaitAfterFall(Vector2 position)
     {
         yield return new WaitForSeconds(_fallTime);
-        
-        var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
-        _rigidbody.position += reverseDirection * 1.5f;
+        // Debug.Log($"{position}");
+        _rigidbody.position = _rigidbody.position + position * 1.5f;
         
         CurrentState = State.Ground;
     }

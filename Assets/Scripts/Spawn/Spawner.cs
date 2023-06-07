@@ -4,10 +4,11 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject _spawnObject;
-
+    [SerializeField] private int _count;
+    
     private void Awake()
     {
-        Spawn();
+        for (var i = 0; i < _count; i++) Spawn();
     }
 
     public void Spawn()
