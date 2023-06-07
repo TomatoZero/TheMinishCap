@@ -14,6 +14,8 @@ public class EnemyMoveController : MonoBehaviour
     [SerializeField] private EnemyEyesController _eyesController;
     [SerializeField] private ChangeDirectionViewEvent _rotation;
 
+    public Vector2 DirectionView => _directionView;
+
     protected virtual Vector2 MoveDirection
     {
         get => _moveDirection;
@@ -49,10 +51,6 @@ public class EnemyMoveController : MonoBehaviour
         }
     }
 
-    private Vector2 _moveDirection;
-    private Vector2 _directionView;
-    private EnemyState _currentState;
-    private float _currentSpeed;
 
     protected virtual EnemyState CurrentState
     {
@@ -78,6 +76,11 @@ public class EnemyMoveController : MonoBehaviour
             }
         }
     }
+
+    private Vector2 _moveDirection;
+    private Vector2 _directionView;
+    private EnemyState _currentState;
+    private float _currentSpeed;
 
     private void Awake()
     {
@@ -136,7 +139,8 @@ public class EnemyMoveController : MonoBehaviour
     {
         MoveDirection = Vector2.zero;
         CurrentState = EnemyState.StartMove;
-        StartCoroutine(AfterPlayerHitAction());
+        if(enabled)
+            StartCoroutine(AfterPlayerHitAction());
     }
 
     private IEnumerator StopPushTimer()
