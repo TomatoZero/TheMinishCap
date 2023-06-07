@@ -520,6 +520,12 @@ MonoBehaviour:
   _movementController: {fileID: 0}
   _weaponsController: {fileID: 0}
   _spriteRenderer: {fileID: 0}
+  _climbEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _climbEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6580224133196047551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,12 +568,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 8917657017319775124}
   _moveSpeed: 5
-  _rollSpeedMultiplier: 3
+  _rollSpeedMultiplier: 2
   _climbSpeedMultiplier: 0.5
-  _hoveringSpeedMultiplier: 0
-  _rollTime: 0.1
   _pushSpeedMultiplier: 5
-  _pushTime: 0.15
+  _rollTime: 0.35
+  _pushTime: 0.1
+  _fallTime: 1
 --- !u!114 &4227109226498632798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,10 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c41a8e4604d43746baa3ce8696d5f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 0}
   _movementController: {fileID: 6676185524730419155}
-  _trapDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
   _takeDamageEvent:
     m_PersistentCalls:
       m_Calls:
@@ -612,21 +616,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _fallEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _rollColliderIgnore:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &6053767911580309423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,5 +634,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03aaf5d2395674e449028a8b02f767be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementController: {fileID: 0}
-  _animator: {fileID: 0}
+  _movementController: {fileID: 6676185524730419155}
+  _animator: {fileID: 2190069241017258007}

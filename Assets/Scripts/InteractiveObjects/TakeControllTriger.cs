@@ -7,7 +7,6 @@ public class TakeControllTriger : MonoBehaviour
         if (other.TryGetComponent(out CharacterController controller))
         {
             controller.ClimbingStart();
-            // controller.MoveTo(this.transform.position.x);
         }
     }
 }

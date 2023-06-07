@@ -44,7 +44,7 @@ public class MovementController : MonoBehaviour
                     _currentSpeed = _moveSpeed * _climbSpeedMultiplier;
                     break;
                 case State.StopClimb:
-                    _currentSpeed = _moveSpeed * 0.1f;
+                    _currentSpeed = _moveSpeed * 0.2f;
                     break;
                 case State.Roll:
                     _currentSpeed = _moveSpeed * _rollSpeedMultiplier;
@@ -76,7 +76,7 @@ public class MovementController : MonoBehaviour
         {
             
             if (CurrentState == State.Roll || CurrentState == State.PushAway || 
-                CurrentState == State.StopClimb) return;
+                CurrentState == State.StopClimb || CurrentState == State.MeleeAttack) return;
 
             var tempDirection = value.normalized;
 
@@ -157,12 +157,6 @@ public class MovementController : MonoBehaviour
         StartCoroutine(MoveWhileClimb(isStart));
     }
 
-    public void ClimbingEndEventHandler()
-    {
-        CurrentState = State.StopClimb;
-        StartCoroutine(MoveWhileClimb(true));
-    }
-
     private IEnumerator MoveWhileClimb(bool isStart)
     {
         yield return new WaitForSeconds(0.7f);
@@ -208,7 +202,8 @@ public class MovementController : MonoBehaviour
         switch (state)
         {
             case State.PushAwayPrepare:
-                MoveDirection = new Vector2(-position.x, -position.y);
+                var pushDirection = (-_rigidbody.position + position).normalized;
+                MoveDirection = new Vector2(-pushDirection.x, -pushDirection.y);
                 StartCoroutine(FinishPush());
                 break;
             case State.FallInWatter:

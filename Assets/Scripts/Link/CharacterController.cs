@@ -28,6 +28,9 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         _childSprite = GetComponentsInChildren<SpriteRenderer>().ToList();
+        
+        Physics2D.IgnoreLayerCollision(7, 8, true);
+
     }
 
     public void ChangeLayer(string layer)
