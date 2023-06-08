@@ -152,7 +152,6 @@ public class MovementController : MonoBehaviour
     public void ClimbingEventHandler()
     {
         var isStart = CurrentState != State.Climb;
-        Debug.Log($"isStart: {isStart}");
         CurrentState = State.StopClimb;
         StartCoroutine(MoveWhileClimb(isStart));
     }

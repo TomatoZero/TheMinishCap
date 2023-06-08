@@ -10,4 +10,21 @@ public class SpawnableObject : MonoBehaviour
     {
         _destroyEvent.Invoke();
     }
+
+    public void SetLvl(string lvl)
+    {
+        if (gameObject.TryGetComponent(out SpriteRenderer spriteRenderer))
+        {
+            spriteRenderer.sortingLayerName = lvl;
+            spriteRenderer.sortingOrder = 1;
+        }
+
+        var children = transform.GetComponentInChildren<SpriteRenderer>();
+
+        if (children != null)
+        {
+            children.sortingLayerName = lvl;
+            children.sortingOrder = 1;
+        }
+    }
 }

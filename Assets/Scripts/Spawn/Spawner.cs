@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject _spawnObject;
     [SerializeField] private int _count;
+    [SerializeField] private string _lvl = "Lvl0";
     
     private void Awake()
     {
@@ -23,5 +24,6 @@ public class Spawner : MonoBehaviour
         var snake = Instantiate(_spawnObject, transform.position, Quaternion.identity, transform);
         snake.TryGetComponent(out SpawnableObject controller);
         controller?.DestroyEvent.AddListener(Spawn);
+        controller?.SetLvl(_lvl);
     }
 }

@@ -1,12 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EnemyEyesController : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _collider;
+    
     private bool _isLookForPlayer = true;
-
+    protected int _layerMask;
+    
     public BoxCollider2D Collider => _collider;
+    
+
+    private void Awake()
+    {
+        _layerMask = ~(LayerMask.GetMask("Ignore Raycast", "Enemy"));
+    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -34,7 +43,11 @@ public abstract class EnemyEyesController : MonoBehaviour
     protected virtual bool CheckOneDirection(Vector2 direction)
     {
         var hasHit = Physics2D.BoxCast(transform.position, _collider.size / 2f, 0f,
-            direction,1f);
+            direction,1f, _layerMask);
+        
+        // Debug.Log($"Hit {hasHit.transform.name} {hasHit.transform.tag}");
+        
+        Debug.DrawRay(transform.position, direction, Color.yellow, 1);
         
         return !hasHit;
     }
