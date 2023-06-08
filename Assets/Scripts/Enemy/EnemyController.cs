@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,12 @@ public class EnemyController : MonoBehaviour
     public void Dead()
     {
         _enemyDie.Invoke();
+        StartCoroutine(Die());
+    }
+
+    private IEnumerator Die()
+    {
+        yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
     }
 }

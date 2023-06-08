@@ -61,6 +61,11 @@ public class DamageController : MonoBehaviour
         }
     }
 
+    public void RollEventHandler()
+    {
+        IsRoll = true;
+    }
+
     private IEnumerator EnableCollision()
     {
         _canStartTimer = false;
@@ -76,6 +81,8 @@ public class DamageController : MonoBehaviour
     private IEnumerator EnableLayerCollision()
     {
         _canStartTimer = false;
+        
+        Debug.Log($"111111");
         
         Physics2D.IgnoreLayerCollision(7, 3, true);
         yield return new WaitForSeconds(_movementController.RollTime);
@@ -103,6 +110,7 @@ public class DamageController : MonoBehaviour
             }
         }
     }
+
     private void IgnoreCollision(Collision2D other, bool mod)
     {
         Physics2D.IgnoreCollision(_collider, other.collider, mod);
@@ -123,10 +131,5 @@ public class DamageController : MonoBehaviour
     public void EnemyDamage(int hp, Vector2 position)
     {
         _takeDamageEvent.Invoke(hp, State.PushAwayPrepare, position);
-    }
-
-    public void RollEventHandler()
-    {
-        IsRoll = true;
     }
 }

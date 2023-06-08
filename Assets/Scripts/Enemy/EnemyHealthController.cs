@@ -6,6 +6,7 @@ public class EnemyHealthController : MonoBehaviour
 {
     [SerializeField] private int _baseHp;
     [SerializeField] private UnityEvent _deathEvent;
+    [SerializeField] private SnakeAttackEvent _pushAwayEvent;
     [SerializeField] private EnemyMoveController _moveController;
     
     private int _currentHp;
@@ -21,7 +22,7 @@ public class EnemyHealthController : MonoBehaviour
             throw new Exception("Enemy hp is less then or equal to zero ");
 
         _currentHp--;
-        _moveController.PushAway(direction);
+        _pushAwayEvent.Invoke(direction);
         
         if (_currentHp == 0)
         {

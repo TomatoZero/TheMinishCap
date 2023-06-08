@@ -5,7 +5,9 @@ public abstract class EnemyEyesController : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D _collider;
     private bool _isLookForPlayer = true;
-    
+
+    public BoxCollider2D Collider => _collider;
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if(!_isLookForPlayer) return;
@@ -31,9 +33,9 @@ public abstract class EnemyEyesController : MonoBehaviour
     
     protected virtual bool CheckOneDirection(Vector2 direction)
     {
-        var hasHit = Physics.BoxCast(transform.position, _collider.size / 2f,
-            direction, out RaycastHit hitInfo, Quaternion.identity, 3f);
-       
+        var hasHit = Physics2D.BoxCast(transform.position, _collider.size / 2f, 0f,
+            direction,1f);
+        
         return !hasHit;
     }
     

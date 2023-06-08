@@ -61,8 +61,20 @@ public class EnemyMoveController : MonoBehaviour
             switch (value)
             {
                 case EnemyState.Move:
+                    _currentSpeed = _baseSpeed;
+                    break;
                 case EnemyState.StartMove:
                     _currentSpeed = _baseSpeed;
+                    
+                    var availableDirection = _eyesController.CheckAvailableDirection();
+                    
+                    // Debug.Log($"availableDirection {String.Join(' ', availableDirection)}");
+                    
+                    var randomIndex = (new Random()).Next(0, availableDirection.Count);
+                    MoveDirection = availableDirection[randomIndex];
+                    StartCoroutine(ChangeMoveDirection());
+                    
+                    CurrentState = EnemyState.Move;
                     break;
                 case EnemyState.Run:
                     _currentSpeed = _baseSpeed * _runSpeedMultiplier;
@@ -106,13 +118,13 @@ public class EnemyMoveController : MonoBehaviour
     {
         if ((CurrentState != EnemyState.StartMove) &&
             (other.collider.CompareTag("Enemy") || other.collider.CompareTag("Wall")) ||
-            other.collider.CompareTag("Player"))
+            other.collider.CompareTag("Player") || other.collider.CompareTag("EnemyZone"))
         {
             StopRun();
         }
     }
 
-    public virtual void PushAway(Vector2 direction)
+    public virtual void PushAwayEventHandler(Vector2 direction)
     {
         MoveDirection = Vector2.zero;
         CurrentState = EnemyState.PushAwayPrepare;
