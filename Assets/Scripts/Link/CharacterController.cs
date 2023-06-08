@@ -11,11 +11,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private MovementController _movementController;
     [SerializeField] private WeaponsController _weaponsController;
     [SerializeField] private SpriteRenderer _spriteRenderer;
-
     [SerializeField] private UnityEvent _climbEvent;
-
-    [FormerlySerializedAs("_climbEnd")] [SerializeField]
-    private UnityEvent _climbEndEvent;
 
     private List<SpriteRenderer> _childSprite;
 
@@ -45,5 +41,4 @@ public class CharacterController : MonoBehaviour
     }
 
     public void ClimbingStart() => _climbEvent.Invoke();
-    public void ClimbingEnd() => _climbEndEvent.Invoke();
 }

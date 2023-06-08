@@ -3,9 +3,7 @@ using UnityEngine;
 public class WeaponsController : MonoBehaviour
 {
     [SerializeField] private BaseWeapon _firstWeapon;
-    // [SerializeField] private BaseWeapon _secondWeapon;
     
-
     public void UseFirstWeaponEventHandler()
     {
         _firstWeapon.UseWeapon();

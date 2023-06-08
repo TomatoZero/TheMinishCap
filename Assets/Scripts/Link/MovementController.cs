@@ -51,9 +51,8 @@ public class MovementController : MonoBehaviour
                     break;
                 case State.FallFromEdge:
                 case State.FallInWatter:
-                    _currentSpeed = 0;
-                    break;
                 case State.MeleeAttack:
+                case State.MeleeAttackPrepare:
                     _currentSpeed = 0;
                     break;
                 case State.PushAwayPrepare:
@@ -74,7 +73,6 @@ public class MovementController : MonoBehaviour
         get => _moveDirection;
         set
         {
-            
             if (CurrentState == State.Roll || CurrentState == State.PushAway || 
                 CurrentState == State.StopClimb || CurrentState == State.MeleeAttack) return;
 
@@ -105,6 +103,9 @@ public class MovementController : MonoBehaviour
             }
 
             Rotation?.Invoke(_directionView);
+
+            if (CurrentState == State.MeleeAttackPrepare)
+                CurrentState = State.MeleeAttack;
         }
     }
 
@@ -162,23 +163,10 @@ public class MovementController : MonoBehaviour
         if (!isStart) CurrentState = State.Ground;
         else CurrentState = State.Climb;
     }
-    
-    public void JumpFromEdge()
-    {
-    }
-
-    public void FallFromEdge(State state)
-    {
-        // CurrentState = state;
-        // var reverseDirection = new Vector2(-MoveDirection.x, -MoveDirection.y);
-        // _rigidbody.position += reverseDirection * 0.5f;
-        // MoveDirection = Vector2.zero;
-        // StartCoroutine(WaitAfterFall());
-    }
 
     public void UseWeaponEventHandler()
     {
-        CurrentState = State.MeleeAttack;
+        CurrentState = State.MeleeAttackPrepare;
     }
 
     private void WeaponEventHold()
@@ -207,12 +195,9 @@ public class MovementController : MonoBehaviour
                 break;
             case State.FallInWatter:
             case State.FallFromEdge:
-                
-                Debug.Log($"MOveDirection {_moveDirection}");
-
                 var direction = (_rigidbody.position - position);
 
-                _rigidbody.position = _rigidbody.position + MoveDirection * 1.25f;
+                _rigidbody.position += MoveDirection * 1.25f;
                 StartCoroutine(WaitAfterFall(new Vector2(-_moveDirection.x, -_moveDirection.y)));
                 break;
         }
@@ -221,21 +206,23 @@ public class MovementController : MonoBehaviour
     private IEnumerator FinishPush()
     {
         yield return new WaitForSeconds(_pushTime);
-        CurrentState = State.Ground;
+        
+        if(CurrentState != State.FallFromEdge || CurrentState != State.FallInWatter)
+            CurrentState = State.Ground;
     }
 
     private IEnumerator WaitAfterFall(Vector2 position)
     {
         yield return new WaitForSeconds(_fallTime);
-        // Debug.Log($"{position}");
         _rigidbody.position = _rigidbody.position + position * 1.5f;
-        
+        Debug.Log($"Current state {CurrentState}");
         CurrentState = State.Ground;
     }
 
     private IEnumerator StopRolling()
     {
         yield return new WaitForSeconds(_rollTime);
-        CurrentState = State.Ground;
+        if(CurrentState != State.FallFromEdge || CurrentState != State.FallInWatter)
+            CurrentState = State.Ground;
     }
 }

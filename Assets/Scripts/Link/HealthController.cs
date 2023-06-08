@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class HealthController : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private UnityEvent _playerDie;
     [SerializeField] private PlayerHpEvent _playerTakeDamageEvent;
     [SerializeField] private PlayerHpEvent _playerHealEvent;
-    [SerializeField] private PlayerHpEvent _playerSetHpHpEvent;
+    [FormerlySerializedAs("_playerSetHpHpEvent")] [SerializeField] private PlayerHpEvent _playerSetHpEvent;
     [SerializeField] private UnityEvent _increaseHp;
 
     private int _currentHp;
@@ -17,7 +18,7 @@ public class HealthController : MonoBehaviour
 
     private void Awake()
     {
-        _playerSetHpHpEvent.Invoke(_baseHp);
+        _playerSetHpEvent.Invoke(_baseHp);
         _currentHp = _baseHp;
         _currentMaxHp = _baseHp;
     }

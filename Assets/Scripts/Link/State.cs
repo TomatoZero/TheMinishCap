@@ -6,6 +6,7 @@ public enum State
     Roll,
     FallFromEdge,
     FallInWatter,
+    MeleeAttackPrepare,
     MeleeAttack,
     HoldWeapon,
     PushAwayPrepare,

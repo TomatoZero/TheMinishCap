@@ -8,6 +8,9 @@ public class Sword : BaseWeapon
         if (other.TryGetComponent(out EnemyHealthController enemy))
         {
             enemy.TakeDamage(Direction);
+            if (!IsRelease)
+                IsRelease = true;
+            
         }
     }
 
