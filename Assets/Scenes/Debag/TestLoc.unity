@@ -25356,7 +25356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310584144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.26, y: -19.77, z: 0.28906277}
+  m_LocalPosition: {x: -11.26, y: -18.39, z: 0.28906277}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29714,7 +29714,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783978784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.65, y: -17.03, z: -10}
+  m_LocalPosition: {x: -13.16, y: -9.59, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34536,7 +34536,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101270773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.147676, y: -17.027845, z: -10}
+  m_LocalPosition: {x: -13.16, y: -9.59, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36262,24 +36262,8 @@ PrefabInstance:
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _collider
-      value: 
-      objectReference: {fileID: 8917657017663118558}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _playerLayer.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _rollColliderIgnore.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _fallEvent.m_PersistentCalls.m_Calls.Array.size
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _fallEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -36294,63 +36278,11 @@ PrefabInstance:
       value: FallFromEdge
       objectReference: {fileID: 0}
     - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 8917657017663118547}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 8917657017663118556}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TakeDamageEventHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: TakeDamageEventHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: TakeDamageEventHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _fallEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MovementController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MovementController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: AnimationController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _fallEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3996715834331739530, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-      propertyPath: _takeDamageEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4132293624899701264, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
@@ -36391,6 +36323,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _playerHealEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
+      propertyPath: _playerSetHpEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
@@ -36438,6 +36374,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 737254546}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
+      propertyPath: _playerSetHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 737254546}
+    - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _playerSetHpHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
@@ -36454,8 +36394,16 @@ PrefabInstance:
       value: RestoreHp
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
+      propertyPath: _playerSetHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _playerTakeDamageEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
+      propertyPath: _playerSetHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetCurrentHp
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _playerSetHpHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -36486,6 +36434,10 @@ PrefabInstance:
       value: HealthBarController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
+      propertyPath: _playerSetHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HealthBarController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _playerSetHpHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: HealthBarController, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -36499,6 +36451,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: _playerHealEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
+      propertyPath: _playerSetHpEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6580224133196047551, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
@@ -36519,11 +36475,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8917657017319775120, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -30.65
+      value: -13.16
       objectReference: {fileID: 0}
     - target: {fileID: 8917657017319775120, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.78
+      value: -10.34
       objectReference: {fileID: 0}
     - target: {fileID: 8917657017319775120, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -36956,8 +36912,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c41a8e4604d43746baa3ce8696d5f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &8917657017663118558 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8917657017319775125, guid: fefcba96b765bcc47a4a2042421764a9, type: 3}
-  m_PrefabInstance: {fileID: 8917657017663118546}
-  m_PrefabAsset: {fileID: 0}
